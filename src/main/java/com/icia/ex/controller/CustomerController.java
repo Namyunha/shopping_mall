@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
+
     @GetMapping("/login")
     public String login() {
         return "/customerPages/customerLogin";
@@ -17,5 +18,7 @@ public class CustomerController {
     public String save() {
         return "/customerPages/customerSave";
     }
+
+
 }
 
