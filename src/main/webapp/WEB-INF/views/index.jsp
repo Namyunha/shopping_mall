@@ -14,6 +14,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/resources/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/index.css">
 </head>
 <body>
 <header>
@@ -21,6 +22,7 @@
         <h1>BookShopping-Mall</h1>
     </div>
 </header>
+
 <nav class="navbar navbar-expand-lg bg-light navbar-dark bg-dark">
     <div class="container-fluid">
         <img src="/resources/images/logo.webp" alt="" width="100" height="70" >
@@ -44,7 +46,7 @@
                         <li><a class="dropdown-item" href="#">액션</a></li>
                         <li><a class="dropdown-item" href="#">자기개발서</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">기타등등</a></li>
+                        <li><a class="dropdown-item" href="#">전체보기</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -65,10 +67,10 @@
         </div>
     </div>
 </nav>
-<main></main>
-<footer class="container">
+
+<main>
     <%!String tagline = "Welcome to Book Market!";%>
-    <div class="container">
+    <div class="container mainContainer">
         <div class="text-center">
             <h3>
                 <%=tagline%>
@@ -92,6 +94,10 @@
         </div>
         <hr>
     </div>
+</main>
+
+<footer class="container">
+
     <p>&copy; BookMarket</p>
 </footer>
 </body>

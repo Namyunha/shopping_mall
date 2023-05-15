@@ -38,3 +38,9 @@ input{
     background-color: white;
     height: 80%;
 }
+#address_content{
+    display: flex;
+}
+.post-controller{
+    width: 50%;
+}

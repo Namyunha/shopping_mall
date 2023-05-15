@@ -25,11 +25,11 @@
     <div id="nameBlank">
         <div class="nameBlank_component">
             <label for="name" class="form-label">이름</label>
-            <input type="text" class="form-control name-controller" id="name" placeholder="홍길동">
+            <input type="text" class="form-control" id="name" placeholder="홍길동">
         </div>
         <div class="nameBlank_component">
             <label for="nickname" class="form-label">별명</label>
-            <input type="text" class="form-control name-controller" id="nickname" placeholder="흑염소">
+            <input type="text" class="form-control" id="nickname" placeholder="흑염소">
         </div>
     </div>
     <div class="mb-3">
@@ -44,17 +44,22 @@
     <div>
         <input type="text" id="sample6_postcode" placeholder="우편번호">
         <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-        <input type="text" id="sample6_address" class="form-control" placeholder="주소"><br>
+        <input type="text" id="sample6_address" class="form-control" placeholder="주소">
         <div id="address_content">
-        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-        <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+            <input class="form-control post-controller" type="text" id="sample6_detailAddress" placeholder="상세주소">
+            <input class="form-control post-controller" type="text" id="sample6_extraAddress" placeholder="참고항목">
         </div>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입하기</button>
     <br>
-    <button class="w-100 btn btn-lg btn-dark" type="submit">Sign up</button>
-    <p class="mt-5 mb-3 text-muted">© 2017–2023</p>
+    <input type="button" onclick="goBack()" class="w-100 btn btn-lg btn-dark" value="뒤로가기">
+    <p class="mt-5 mb-3 text-muted">©2017–2023</p>
 </form>
 </body>
+<script>
+    const goBack = () => {
+        history.back();
+    }
+</script>
 
 </html>
