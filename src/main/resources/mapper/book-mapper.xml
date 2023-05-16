@@ -14,8 +14,16 @@
         values (#{originalFileName}, #{storedFileName}, #{bookId})
     </insert>
 
-    <select id="selectList" resultType="bookFile">
-        select * from book_file_table;
+    <select id="selectList" resultType="books">
+        select * from book_file_table f, book_table b where f.bookId = b.id;
+    </select>
+<!--    select * from emp, dept where emp.deptno = dept.deptno;-->
+    <select id="selectOne" parameterType="Long" resultType="book">
+        select * from book_table where id=#{bookId};
+    </select>
+
+    <select id="selectFile" parameterType="Long" resultType="bookFile">
+        select * from book_file_table where bookId=#{id};
     </select>
 
 </mapper>

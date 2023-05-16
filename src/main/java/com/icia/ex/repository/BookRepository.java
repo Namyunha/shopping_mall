@@ -2,6 +2,7 @@ package com.icia.ex.repository;
 
 import com.icia.ex.dto.BookDTO;
 import com.icia.ex.dto.BookFileDTO;
+import com.icia.ex.dto.BooksDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,7 +26,15 @@ public class BookRepository {
         sql.insert("Book.saveFile", bookFileDTO);
     }
 
-    public List<BookFileDTO> findAll() {
+    public List<BooksDTO> findAll() {
         return sql.selectList("Book.selectList");
+    }
+
+    public BookDTO findById(Long bookId) {
+        return sql.selectOne("Book.selectOne", bookId);
+    }
+
+    public BookFileDTO findByOne(Long id) {
+        return sql.selectOne("Book.selectFile", id);
     }
 }

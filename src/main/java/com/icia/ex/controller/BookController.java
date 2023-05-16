@@ -2,6 +2,7 @@ package com.icia.ex.controller;
 
 import com.icia.ex.dto.BookDTO;
 import com.icia.ex.dto.BookFileDTO;
+import com.icia.ex.dto.BooksDTO;
 import com.icia.ex.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/book")
@@ -35,7 +38,7 @@ public class BookController {
 
     @GetMapping("/shop")
     public String shop(Model model) {
-        List<BookFileDTO> bookFileDTOList = bookService.findAll();
+        List<BooksDTO> bookFileDTOList = bookService.findAll();
         System.out.println(bookFileDTOList);
         model.addAttribute("bookFileList", bookFileDTOList);
         return "/customerPages/shop";

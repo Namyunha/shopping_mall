@@ -5,5 +5,6 @@
     <typeAliases>
         <typeAlias type="com.icia.ex.dto.BookDTO" alias="book" />
         <typeAlias type="com.icia.ex.dto.BookFileDTO" alias="bookFile" />
+        <typeAlias type="com.icia.ex.dto.BooksDTO" alias="books" />
     </typeAliases>
 </configuration>
