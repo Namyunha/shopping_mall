@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Book">
+    <insert id="save" parameterType="book" useGeneratedKeys="true" keyProperty="id">
+        insert into book_table(bookName, unitPrice, unitsInStock, author, descript, publisher, category, conditions, fileAttached)
+        values (#{bookName}, #{unitPrice}, #{unitsInStock}, #{author}, #{descript}, #{publisher}, #{category}, #{conditions}, #{fileAttached})
+    </insert>
+
+    <insert id="saveFile" parameterType="bookFile">
+        insert into book_file_table(originalFileName, storedFileName, bookId)
+        values (#{originalFileName}, #{storedFileName}, #{bookId})
+    </insert>
+
+    <select id="selectList" resultType="bookFile">
+        select * from book_file_table;
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

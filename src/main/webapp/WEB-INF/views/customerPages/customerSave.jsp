@@ -33,21 +33,21 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <label for="exampleFormControlInput1" class="form-label">Email</label>
         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
     </div>
     <div>
         <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
         <input type="password" class="form-control" id="floatingPassword">
     </div>
-    <label for="sample6_address">주소입력</label>
+    <label for="address">주소입력</label>
     <div>
         <input type="text" id="sample6_postcode" placeholder="우편번호">
         <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-        <input type="text" id="sample6_address" class="form-control" placeholder="주소">
+        <input type="text" id="address" class="form-control" placeholder="주소">
         <div id="address_content">
-            <input class="form-control post-controller" type="text" id="sample6_detailAddress" placeholder="상세주소">
-            <input class="form-control post-controller" type="text" id="sample6_extraAddress" placeholder="참고항목">
+            <input class="form-control post-controller" type="text" id="detailAddress" placeholder="상세주소">
+            <input class="form-control post-controller" type="text" id="extraAddress" placeholder="참고항목">
         </div>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입하기</button>

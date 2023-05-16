@@ -26,9 +26,11 @@
 <nav class="navbar navbar-expand-lg bg-light navbar-dark bg-dark">
     <div class="container-fluid">
         <img src="/resources/images/logo.webp" alt="" width="100" height="70" >
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -37,17 +39,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/customer/login">Login</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Category
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">판타지</a></li>
-                        <li><a class="dropdown-item" href="#">액션</a></li>
-                        <li><a class="dropdown-item" href="#">자기개발서</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">전체보기</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/book/shop">shop</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,6 +58,7 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
+
     </div>
 </nav>
 
