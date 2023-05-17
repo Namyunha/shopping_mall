@@ -3,6 +3,7 @@ package com.icia.ex.service;
 import com.icia.ex.dto.BookDTO;
 import com.icia.ex.dto.BookFileDTO;
 import com.icia.ex.dto.BooksDTO;
+import com.icia.ex.dto.CartDTO;
 import com.icia.ex.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,11 +56,17 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public BookDTO findById(Long bookId) {
+
+    public BooksDTO findById(Long bookId) {
         return bookRepository.findById(bookId);
     }
 
-    public BookFileDTO findByFile(Long id) {
-        return bookRepository.findByOne(id);
+    public void cartSave(CartDTO cartDTO) {
+        bookRepository.cartSave(cartDTO);
     }
+
+    public List<BooksDTO> findBooksList() {
+        return bookRepository.findBooksList();
+    }
+
 }

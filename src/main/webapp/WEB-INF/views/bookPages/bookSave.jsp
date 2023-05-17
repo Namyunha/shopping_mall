@@ -24,6 +24,7 @@
 <form action="/book/save" id="saveForm" name="boardSave" method="post" enctype="multipart/form-data">
     <h1 class="h3 mb-3 fw-normal">책등록</h1>
     <div id="nameBlank">
+
         <div class="nameBlank_component">
             <label for="bookName" class="form-label">도서명</label>
             <input type="text" class="form-control" name="bookName" id="bookName">
@@ -57,6 +58,7 @@
         </select>
         <label for="floatingSelect">Works with selects</label>
     </div>
+
     <div class="form-floating">
         <select class="form-select" id="floatingSelect2" name="category" aria-label="Floating label select example">
             <option value="">category</option>
@@ -66,6 +68,7 @@
         </select>
         <label for="floatingSelect2">Works with selects</label>
     </div>
+
     <div class="form-floating">
         <select class="form-select" name="conditions" id="floatingSelect3" aria-label="Floating label select example">
             <option value="">책상태</option>
@@ -75,14 +78,17 @@
         </select>
         <label for="floatingSelect3">Works with selects</label>
     </div>
+
     <div class="mb-3">
         <label for="releaseDate" class="form-label">출판일</label>
         <input type="text" class="form-control" id="releaseDate" name="releaseDate">
     </div>
+
     <div class="mb-3">
         <label for="formFileMultiple" class="form-label">책이미지</label>
         <input class="form-control" name="bookFile" type="file" id="formFileMultiple" multiple>
     </div>
+
     <%--    releaseDate--%>
     <button class="w-100 btn btn-lg btn-primary" type="submit">책등록하기</button>
     <br>

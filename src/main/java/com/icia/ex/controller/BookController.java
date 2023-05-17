@@ -3,14 +3,14 @@ package com.icia.ex.controller;
 import com.icia.ex.dto.BookDTO;
 import com.icia.ex.dto.BookFileDTO;
 import com.icia.ex.dto.BooksDTO;
+import com.icia.ex.dto.CartDTO;
 import com.icia.ex.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,14 +26,13 @@ public class BookController {
 
     @GetMapping("/save")
     public String bookSave() {
-        return "/customerPages/bookSave";
+        return "/bookPages/bookSave";
     }
-
     @PostMapping("/save")
     public String saveParam(@ModelAttribute BookDTO bookDTO) throws IOException {
         System.out.println(bookDTO);
         bookService.save(bookDTO);
-        return "/customerPages/bookSave";
+        return "/bookPages/bookshop";
     }
 
     @GetMapping("/shop")
@@ -41,6 +40,32 @@ public class BookController {
         List<BooksDTO> bookFileDTOList = bookService.findAll();
         System.out.println(bookFileDTOList);
         model.addAttribute("bookFileList", bookFileDTOList);
-        return "/customerPages/shop";
+        return "/bookPages/bookShop";
+    }
+
+
+
+    @GetMapping("/detail")
+    public String bookDetail(@RequestParam("bookId") Long bookId, Model model) {
+        BooksDTO booksDTO = bookService.findById(bookId);
+
+        model.addAttribute("booksDTO", booksDTO);
+
+        return "/bookPages/bookDetail";
+    }
+
+    @GetMapping("/cart")
+    public String bookCart(Model model){
+        List<BooksDTO> booksDTOList = bookService.findBooksList();
+        System.out.println(booksDTOList);
+        model.addAttribute("bookList", booksDTOList);
+        return "/bookPages/bookCart";
+    }
+
+    @PostMapping("/cart")
+    public ResponseEntity cartParam(@ModelAttribute CartDTO cartDTO) {
+        System.out.println(cartDTO);
+        bookService.cartSave(cartDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

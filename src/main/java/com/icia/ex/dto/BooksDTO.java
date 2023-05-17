@@ -13,6 +13,7 @@ import java.util.List;
 public class BooksDTO {
     private Long id;
     private String bookName;
+    private Long bookCount;
     private Long unitPrice; // 도서 가격
     private Long unitsInStock; // 재고수
     private String author; // 저자
@@ -21,8 +22,8 @@ public class BooksDTO {
     private String category;
     private String conditions; // 신규 or 중고 or E-Book
     private int fileAttached;
-    private List<MultipartFile> bookFile;
     private String originalFileName;
     private String storedFileName;
     private Long bookId;
+
 }

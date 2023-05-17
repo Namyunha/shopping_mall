@@ -3,6 +3,7 @@ package com.icia.ex.repository;
 import com.icia.ex.dto.BookDTO;
 import com.icia.ex.dto.BookFileDTO;
 import com.icia.ex.dto.BooksDTO;
+import com.icia.ex.dto.CartDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,11 +31,16 @@ public class BookRepository {
         return sql.selectList("Book.selectList");
     }
 
-    public BookDTO findById(Long bookId) {
-        return sql.selectOne("Book.selectOne", bookId);
+    public BooksDTO findById(Long bookId) {
+        return sql.selectOne("Book.findById", bookId);
     }
 
-    public BookFileDTO findByOne(Long id) {
-        return sql.selectOne("Book.selectFile", id);
+    public void cartSave(CartDTO cartDTO) {
+        sql.insert("Book.saveCart", cartDTO);
     }
+
+    public List<BooksDTO> findBooksList() {
+        return sql.selectList("Book.selectAll");
+    }
+
 }
