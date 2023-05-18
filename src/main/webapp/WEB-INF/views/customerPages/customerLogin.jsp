@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
 <head>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -17,17 +18,19 @@
     <link rel="stylesheet" href="/resources/css/main.css">
 </head>
 <body>
-<form id="loginForm" name="loginForm">
+
+
+<form action="/customer/login" method="post" id="loginForm" name="loginForm">
     <a href="/">
         <img class="mb-4" src="/resources/images/logo.webp" alt="" width="72" height="57">
     </a>
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
         <label for="floatingPassword">Password</label>
     </div>
     <div class="checkbox mb-3">
@@ -44,6 +47,10 @@
 <script>
     const goSignUp = () => {
         location.href = "/customer/save"
+    }
+    const customer = {
+        "email": email.value,
+        "password" : password.value
     }
 </script>
 </body>

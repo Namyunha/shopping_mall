@@ -7,5 +7,6 @@
         <typeAlias type="com.icia.ex.dto.BookFileDTO" alias="bookFile" />
         <typeAlias type="com.icia.ex.dto.BooksDTO" alias="books" />
         <typeAlias type="com.icia.ex.dto.CartDTO" alias="cart" />
+        <typeAlias type="com.icia.ex.dto.CustomerDTO" alias="customer" />
     </typeAliases>
 </configuration>

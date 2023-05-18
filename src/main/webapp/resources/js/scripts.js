@@ -22,6 +22,12 @@ const minusBtn = () => {
         alert("수량이 모자랍니다");
     }
 }
+
+const goCart = () => {
+    cart-form.preventDefault();
+    location.href="/book/cart";
+}
+
 const addCart = (id) => {
     let inputQuantity = document.querySelector("#inputQuantity").value;
     const cartNum = document.querySelector("#cartNum");

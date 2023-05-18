@@ -71,6 +71,7 @@
 </head>
 <body>
 
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
@@ -90,12 +91,13 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
+
+            <form name="cart-form" class="d-flex">
+                <a href="/book/cart" class="btn btn-outline-dark">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span id="cartNum" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
+                </a>
             </form>
         </div>
     </div>

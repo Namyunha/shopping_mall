@@ -17,7 +17,7 @@ import java.util.UUID;
 @Service
 public class BookService {
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
     public void save(BookDTO bookDTO) throws IOException {
         if(bookDTO.getBookFile().get(0).isEmpty()){
             System.out.println("파일없음");
@@ -51,22 +51,16 @@ public class BookService {
 
         }
     }
-
     public List<BooksDTO> findAll() {
         return bookRepository.findAll();
     }
-
-
     public BooksDTO findById(Long bookId) {
         return bookRepository.findById(bookId);
     }
-
     public void cartSave(CartDTO cartDTO) {
         bookRepository.cartSave(cartDTO);
     }
-
     public List<BooksDTO> findBooksList() {
         return bookRepository.findBooksList();
     }
-
 }

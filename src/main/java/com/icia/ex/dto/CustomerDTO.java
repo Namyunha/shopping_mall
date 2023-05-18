@@ -1,5 +1,17 @@
 package com.icia.ex.dto;
 
-public class CustomerDTO {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class CustomerDTO {
+    private Long id;
+    private String name;
+    private String nickname;
+    private String email;
+    private String password;
+    private String address;
 }

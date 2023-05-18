@@ -28,11 +28,15 @@ public class BookController {
     public String bookSave() {
         return "/bookPages/bookSave";
     }
+
     @PostMapping("/save")
-    public String saveParam(@ModelAttribute BookDTO bookDTO) throws IOException {
+    public String saveParam(@ModelAttribute BookDTO bookDTO, Model model) throws IOException {
         System.out.println(bookDTO);
         bookService.save(bookDTO);
-        return "/bookPages/bookshop";
+        List<BooksDTO> bookFileDTOList = bookService.findAll();
+        System.out.println(bookFileDTOList);
+        model.addAttribute("bookFileList", bookFileDTOList);
+        return "/bookPages/bookShop";
     }
 
     @GetMapping("/shop")
@@ -48,7 +52,6 @@ public class BookController {
     @GetMapping("/detail")
     public String bookDetail(@RequestParam("bookId") Long bookId, Model model) {
         BooksDTO booksDTO = bookService.findById(bookId);
-
         model.addAttribute("booksDTO", booksDTO);
 
         return "/bookPages/bookDetail";
