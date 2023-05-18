@@ -4,17 +4,16 @@ package com.icia.ex.controller;
 import com.icia.ex.dto.CustomerDTO;
 import com.icia.ex.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-@Autowired
+    @Autowired
     private CustomerService customerService;
 
     @GetMapping("/login")
@@ -23,7 +22,7 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public String loginParam(){
+    public String loginParam() {
         return "/";
     }
 
@@ -39,5 +38,21 @@ public class CustomerController {
         return "/customerPages/customerLogin";
     }
 
+    @PostMapping("/emailCheck")
+    public ResponseEntity emailCheck(@RequestParam("email") String email) {
+        String duEmail = customerService.findByEmail(email);
+        if (duEmail == null) {
+            return new ResponseEntity<>(duEmail, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
 }
+
+
+
+
+
+
+
 

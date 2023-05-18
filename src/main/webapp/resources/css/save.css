@@ -3,7 +3,6 @@
 }
 
 body {
-    min-height: 100vh;
     background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
     background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
     background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
@@ -13,7 +12,7 @@ body {
 
 body{
     width: 100vw;
-    height: 100vh;
+    padding: 10% 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,10 +37,9 @@ input{
 
 #saveForm{
     border-radius: 2%;
-    padding: 3%;
+    padding: 5% 3%;
     width: 70%;
     background-color: white;
-    height: 80%;
 }
 
 #address_content{

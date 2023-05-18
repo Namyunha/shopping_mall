@@ -36,13 +36,19 @@
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" name="email"
+        <input onblur="duCheckEmail()" type="email" class="form-control" id="exampleFormControlInput1" name="email"
                placeholder="name@example.com">
+        <p id="duCheckEmailResult"></p>
     </div>
     <div>
         <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
-        <input type="password" class="form-control" name="password" id="floatingPassword">
+        <input onblur="pwRegularCheck()" type="password" class="form-control" name="password" id="floatingPassword" placeholder="영,소문자,숫자 포함 6~12자 입력">
+        <p id="pwRegularResult"></p>
+        <label for="exampleFormControlInput1" class="form-label">비밀번호확인</label>
+        <input onblur="pwDuCheck()" type="password" class="form-control" id="checkPassword" disabled>
+        <p id="pwDuCheckResult"></p>
     </div>
+
     <label for="sample6_address">주소입력</label>
     <div>
         <input type="text" id="address" name="address" display="none">
@@ -52,7 +58,7 @@
         <input type="text" id="sample6_detailAddress" placeholder="상세주소">
         <input type="text" id="sample6_extraAddress" placeholder="참고항목">
     </div>
-    <button onclick="join()" class="w-100 btn btn-lg btn-primary">회원가입하기</button>
+    <button id="joinBtn" onclick="join()" class="w-100 btn btn-lg btn-primary">회원가입하기</button>
     <br>
     <input type="button" onclick="goBack()" class="w-100 btn btn-lg btn-dark" value="뒤로가기">
     <p class="mt-5 mb-3 text-muted">©2017–2023</p>
@@ -61,55 +67,6 @@
 
 </body>
 <script>
-    const goBack = () => {
-        history.back();
-    }
-    const saveForm = document.querySelector("#saveForm");
-
-
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
-    const join = () => {
-        const name = document.querySelector("#name");
-        const nickname = document.querySelector("#nickname");
-        const email = document.querySelector("#exampleFormControlInput1");
-        const password = document.querySelector("#floatingPassword");
-
-        const postcode = document.querySelector("#sample6_postcode");
-        const mainAddress = document.querySelector("#sample6_address");
-        const detailAddress = document.querySelector("#sample6_detailAddress");
-        let address = document.querySelector("#address");
-        saveForm.addEventListener("submit", handleSubmit);
-
-        if (name.value == "") {
-            alert("이름을 입력해주세요")
-            name.focus();
-        } else if (nickname.value == "") {
-            alert("별명을 입력해주세요");
-            nickname.focus();
-        } else if (email.value == "") {
-            alert("이메일을 입력해주세요");
-            email.focus();
-        } else if (password.value == "") {
-            alert("비밀번호를 입력해주세요");
-            password.focus();
-        } else if (postcode.value == "") {
-            alert("우편번호를 입력해주세요");
-            postcode.focus();
-        } else if (mainAddress.value == "") {
-            alert("주소를 입력해주세요");
-            mainAddress.focus();
-        } else if (detailAddress.value == "") {
-            alert("상세주소를 입력해주세요");
-            detailAddress.focus();
-        } else {
-            address.value = postcode.value + ", " + mainAddress.value + ", " + detailAddress.value;
-            alert("회원가입에 성공하셨습니다");
-            saveForm.submit();
-        }
-    }
-
 
 </script>
 

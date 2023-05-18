@@ -8,6 +8,10 @@
         insert into customer_table(name, nickname, email, password, address)
         values (#{name}, #{nickname}, #{email}, #{password}, #{address})
     </insert>
+
+    <select id="findByEmail" parameterType="String" resultType="String">
+        select * from customer_table where email=#{email};
+    </select>
 </mapper>
 
 

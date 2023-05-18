@@ -13,4 +13,8 @@ public class CustomerRepository {
     public void save(CustomerDTO customerDTO) {
         sql.insert("Customer.save", customerDTO);
     }
+
+    public String fundByEmail(String email) {
+        return sql.selectOne("Customer.findByEmail", email);
+    }
 }

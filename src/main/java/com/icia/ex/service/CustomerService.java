@@ -12,4 +12,9 @@ public class CustomerService {
     public void save(CustomerDTO customerDTO) {
         customerRepository.save(customerDTO);
     }
+
+
+    public String findByEmail(String email) {
+       return customerRepository.fundByEmail(email);
+    }
 }
