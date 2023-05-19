@@ -7,9 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CartDTO {
+public class CategoryDTO {
     private Long id;
-    private Long bookId;
-    private Long customerId;
-    private Long bookCount;
+    private String name;
 }

@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -25,9 +27,10 @@
 
 <nav class="navbar navbar-expand-lg bg-light navbar-dark bg-dark">
     <div class="container-fluid">
-        <img src="/resources/images/logo.webp" alt="" width="100" height="70" >
+        <img src="/resources/images/logo.webp" alt="" width="100" height="70">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -36,14 +39,24 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/customer/login">Login</a>
-                </li>
+                <c:choose>
+                    <c:when test="${id == null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/customer/login">Login</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/customer/logout">Logout</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
                 <li class="nav-item">
                     <a class="nav-link" href="/book/shop">shop</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         Community
                     </a>
                     <ul class="dropdown-menu">
@@ -54,6 +67,9 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
+                    <c:if test="${id != null}">
+                        <span style="color: white">${id}님 환영합니다.</span>
+                    </c:if>
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -142,9 +158,21 @@
         <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
             <p>© 2023 Company, Inc. All rights reserved.</p>
             <ul class="list-unstyled d-flex">
-                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#twitter"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#instagram"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#facebook"></use>
+                    </svg>
+                </a></li>
             </ul>
         </div>
     </footer>

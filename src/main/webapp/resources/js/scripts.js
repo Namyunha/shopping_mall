@@ -23,20 +23,24 @@ const minusBtn = () => {
     }
 }
 
+
+
 const goCart = () => {
     cart-form.preventDefault();
     location.href="/book/cart";
 }
 
-const addCart = (id) => {
+
+
+const addCart = (id, sellerId) => {
     let inputQuantity = document.querySelector("#inputQuantity").value;
-    const cartNum = document.querySelector("#cartNum");
     $.ajax({
         type: "post",
         url: "/book/cart",
         data:{
             bookId: id,
-            bookCount: inputQuantity
+            bookCount: inputQuantity,
+            customerId: sellerId
         },
         success: function () {
             alert("장바구니에 물건이 담겼습니다.");

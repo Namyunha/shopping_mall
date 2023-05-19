@@ -4,12 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @ToString
-public class CartDTO {
+
+public class OrderDTO {
     private Long id;
     private Long bookId;
     private Long customerId;
-    private Long bookCount;
+    private Long quantity;
+    private Timestamp createdDate;
+    private Timestamp updatedDate;
+    private String memo;
 }

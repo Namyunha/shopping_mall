@@ -4,9 +4,12 @@
 
 
 <mapper namespace="Book">
+
     <insert id="save" parameterType="book" useGeneratedKeys="true" keyProperty="id">
-        insert into book_table(bookName, unitPrice, unitsInStock, author, descript, publisher, category, conditions, fileAttached)
-        values (#{bookName}, #{unitPrice}, #{unitsInStock}, #{author}, #{descript}, #{publisher}, #{category}, #{conditions}, #{fileAttached})
+        insert into book_table(sellerId, bookName, unitPrice, unitsInStock, author, descript, publisher, category,
+                               conditions, fileAttached)
+        values (#{sellerId}, #{bookName}, #{unitPrice}, #{unitsInStock}, #{author}, #{descript}, #{publisher},
+                #{category}, #{conditions}, #{fileAttached})
     </insert>
 
     <insert id="saveFile" parameterType="bookFile">
@@ -15,29 +18,42 @@
     </insert>
 
     <insert id="saveCart" parameterType="cart">
-        insert into cart_table(bookId, bookCount)
-        values (#{bookId}, #{bookCount})
+        insert into cart_table(bookId, customerId, bookCount)
+        values (#{bookId}, #{customerId}, #{bookCount})
     </insert>
 
     <select id="selectList" resultType="books">
-        select * from book_file_table f, book_table b where f.bookId = b.id;
+        select *
+        from book_file_table f,
+             book_table b
+        where f.bookId = b.id;
     </select>
 
     <select id="selectFile" parameterType="Long" resultType="bookFile">
-        select * from book_file_table where bookId=#{id};
+        select *
+        from book_file_table
+        where bookId = #{id};
     </select>
 
     <select id="findById" parameterType="Long" resultType="books">
-        select * from book_file_table f, book_table b where f.bookId = b.id and b.id = #{bookId};
+        select *
+        from book_file_table f,
+             book_table b
+        where f.bookId = b.id
+          and b.id = #{bookId};
     </select>
+
     <select id="selectAll" resultType="books">
-        select b.id, b.bookName, sum(c.bookCount) as 'bookCount', b.unitPrice
+        select b.id, b.bookName, sum(c.bookCount) as 'unitsInStock', b.unitPrice
         from cart_table c,
              book_table b
         where b.id = c.bookId
         group by c.bookId;
     </select>
 
+    <select id="findSum" resultType="result">
+        select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount' from book_table b, cart_table c where b.id = c.bookId;
+    </select>
 </mapper>
 
 

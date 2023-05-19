@@ -63,11 +63,6 @@
     <input type="button" onclick="goBack()" class="w-100 btn btn-lg btn-dark" value="뒤로가기">
     <p class="mt-5 mb-3 text-muted">©2017–2023</p>
 </form>
-
-
 </body>
-<script>
-
-</script>
-
 </html>
+

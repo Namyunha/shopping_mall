@@ -9,12 +9,27 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+
     public void save(CustomerDTO customerDTO) {
         customerRepository.save(customerDTO);
     }
 
 
     public String findByEmail(String email) {
-       return customerRepository.fundByEmail(email);
+        return customerRepository.fundByEmail(email);
+    }
+
+
+    public boolean login(CustomerDTO customerDTO) {
+        CustomerDTO dto = customerRepository.login(customerDTO);
+        if (dto == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Long findBySeller(String id) {
+        return customerRepository.findBySeller(id);
     }
 }

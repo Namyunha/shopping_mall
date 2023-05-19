@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -22,9 +23,11 @@
 <body>
 
 <form action="/book/save" id="saveForm" name="boardSave" method="post" enctype="multipart/form-data">
-    <h1 class="h3 mb-3 fw-normal">책등록</h1>
-    <div id="nameBlank">
 
+    <h1 class="h3 mb-3 fw-normal">책등록</h1>
+
+    <div id="nameBlank">
+        <input type="text" id="sellerId" name="sellerId" value="${selId}" display="none">
         <div class="nameBlank_component">
             <label for="bookName" class="form-label">도서명</label>
             <input type="text" class="form-control" name="bookName" id="bookName">
@@ -38,17 +41,14 @@
             <input type="text" class="form-control" name="unitsInStock" id="unitsInStock">
         </div>
     </div>
-
     <div class="mb-3">
         <label for="author" class="form-label">저자</label>
         <input type="text" class="form-control" name="author" id="author">
     </div>
-
     <div class="mb-3">
         <label for="descript" class="form-label">설명</label>
         <textarea class="form-control" name="descript" id="descript" rows="3"></textarea>
     </div>
-
     <div class="form-floating">
         <select class="form-select" id="floatingSelect" name="publisher" aria-label="Floating label select example">
             <option value="">Publisher</option>
@@ -95,6 +95,7 @@
     <input type="button" onclick="goBack()" class="w-100 btn btn-lg btn-dark" value="뒤로가기">
     <p class="mt-5 mb-3 text-muted">©2017–2023</p>
 </form>
+
 </body>
 <script>
     const goBack = () => {

@@ -50,8 +50,6 @@ const goBack = () => {
     history.back();
 }
 
-
-
 function handleSubmit(event) {
     event.preventDefault();
 }
@@ -117,6 +115,7 @@ const duCheckEmail = () => {
         }
     })
 }
+
 const pwRegularCheck = () => {
     const exp = /^(?=.*[a-z])(?=.*\d)[a-z\d]{6,12}$/;
     const password = document.querySelector("#floatingPassword");
@@ -154,3 +153,4 @@ const pwDuCheck = () => {
         joinBtn.disabled = true;
     }
 }
+

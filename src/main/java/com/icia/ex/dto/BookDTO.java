@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 public class BookDTO {
     private Long id;
+    private Long sellerId;
     private String bookName;
     private Long unitPrice; // 도서 가격
     private Long unitsInStock; // 재고수

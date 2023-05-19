@@ -1,10 +1,8 @@
 package com.icia.ex.controller;
 
-import com.icia.ex.dto.BookDTO;
-import com.icia.ex.dto.BookFileDTO;
-import com.icia.ex.dto.BooksDTO;
-import com.icia.ex.dto.CartDTO;
+import com.icia.ex.dto.*;
 import com.icia.ex.service.BookService;
+import com.icia.ex.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +22,16 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping("/save")
-    public String bookSave() {
+    public String bookSave(HttpSession session, Model model) {
+        String id = (String) session.getAttribute("loginDTO");
+        Long sellerId = customerService.findBySeller(id);
+        System.out.println(sellerId);
+        model.addAttribute("selId", sellerId);
+        model.addAttribute("loginId", id);
         return "/bookPages/bookSave";
     }
 
@@ -40,30 +46,41 @@ public class BookController {
     }
 
     @GetMapping("/shop")
-    public String shop(Model model) {
+    public String shop(Model model, HttpSession session) {
         List<BooksDTO> bookFileDTOList = bookService.findAll();
         System.out.println(bookFileDTOList);
+        String id = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", id);
         model.addAttribute("bookFileList", bookFileDTOList);
         return "/bookPages/bookShop";
     }
 
 
-
     @GetMapping("/detail")
-    public String bookDetail(@RequestParam("bookId") Long bookId, Model model) {
+    public String bookDetail(@RequestParam("bookId") Long bookId, Model model, HttpSession session) {
         BooksDTO booksDTO = bookService.findById(bookId);
         model.addAttribute("booksDTO", booksDTO);
-
+        String id = (String) session.getAttribute("loginDTO");
+        Long sellerId = customerService.findBySeller(id);
+        model.addAttribute("sellerId", sellerId);
+        model.addAttribute("loginId", id);
         return "/bookPages/bookDetail";
     }
 
+
     @GetMapping("/cart")
-    public String bookCart(Model model){
+    public String bookCart(Model model, HttpSession session) {
         List<BooksDTO> booksDTOList = bookService.findBooksList();
+        ResultDTO resultDTO = bookService.findSum();
+        System.out.println("resultDTO = " + resultDTO);
         System.out.println(booksDTOList);
         model.addAttribute("bookList", booksDTOList);
+        String id = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", id);
+        model.addAttribute("sumDTO", resultDTO);
         return "/bookPages/bookCart";
     }
+
 
     @PostMapping("/cart")
     public ResponseEntity cartParam(@ModelAttribute CartDTO cartDTO) {
@@ -71,4 +88,6 @@ public class BookController {
         bookService.cartSave(cartDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

@@ -1,9 +1,6 @@
 package com.icia.ex.service;
 
-import com.icia.ex.dto.BookDTO;
-import com.icia.ex.dto.BookFileDTO;
-import com.icia.ex.dto.BooksDTO;
-import com.icia.ex.dto.CartDTO;
+import com.icia.ex.dto.*;
 import com.icia.ex.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +15,17 @@ import java.util.UUID;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
+
     public void save(BookDTO bookDTO) throws IOException {
-        if(bookDTO.getBookFile().get(0).isEmpty()){
+        if (bookDTO.getBookFile().get(0).isEmpty()) {
             System.out.println("파일없음");
             bookDTO.setFileAttached(0);
             bookRepository.save(bookDTO);
-        } else{
+        } else {
             System.out.println("파일있음");
             bookDTO.setFileAttached(1);
             BookDTO dto = bookRepository.save(bookDTO);
-            for (MultipartFile bookFile: bookDTO.getBookFile()) {
+            for (MultipartFile bookFile : bookDTO.getBookFile()) {
                 // 원본 파일 이름 가져오기
                 String originalFilename = bookFile.getOriginalFilename();
                 System.out.println("originalFilename = " + originalFilename);
@@ -51,16 +49,25 @@ public class BookService {
 
         }
     }
+
     public List<BooksDTO> findAll() {
         return bookRepository.findAll();
     }
+
     public BooksDTO findById(Long bookId) {
         return bookRepository.findById(bookId);
     }
+
     public void cartSave(CartDTO cartDTO) {
         bookRepository.cartSave(cartDTO);
     }
+
     public List<BooksDTO> findBooksList() {
         return bookRepository.findBooksList();
+    }
+
+
+    public ResultDTO findSum() {
+        return bookRepository.findSum();
     }
 }

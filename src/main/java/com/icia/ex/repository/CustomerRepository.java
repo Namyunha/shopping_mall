@@ -17,4 +17,12 @@ public class CustomerRepository {
     public String fundByEmail(String email) {
         return sql.selectOne("Customer.findByEmail", email);
     }
+
+    public CustomerDTO login(CustomerDTO customerDTO) {
+        return sql.selectOne("Customer.login", customerDTO);
+    }
+
+    public Long findBySeller(String id) {
+        return sql.selectOne("Customer.findId", id);
+    }
 }

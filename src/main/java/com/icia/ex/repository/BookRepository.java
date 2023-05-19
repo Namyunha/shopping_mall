@@ -1,8 +1,5 @@
 package com.icia.ex.repository;
-import com.icia.ex.dto.BookDTO;
-import com.icia.ex.dto.BookFileDTO;
-import com.icia.ex.dto.BooksDTO;
-import com.icia.ex.dto.CartDTO;
+import com.icia.ex.dto.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,4 +31,8 @@ public class BookRepository {
         return sql.selectList("Book.selectAll");
     }
 
+
+    public ResultDTO findSum() {
+        return sql.selectOne("Book.findSum");
+    }
 }

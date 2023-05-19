@@ -12,8 +12,8 @@ import java.util.List;
 @ToString
 public class BooksDTO {
     private Long id;
+    private Long sellerId;
     private String bookName;
-    private Long bookCount;
     private Long unitPrice; // 도서 가격
     private Long unitsInStock; // 재고수
     private String author; // 저자
