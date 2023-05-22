@@ -113,7 +113,7 @@
 </div>
 
 <div class="m-md-3">
-    <a href="#" class="w-100 btn btn-lg btn-primary" type="submit">구매하기</a>
+    <a href="/book/payment" class="w-100 btn btn-lg btn-primary" type="submit">구매하기</a>
     <a href="/book/shop" class="w-100 btn btn-lg btn-dark" type="submit">쇼핑하기</a>
 </div>
 </body>

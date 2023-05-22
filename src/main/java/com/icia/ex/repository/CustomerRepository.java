@@ -25,4 +25,8 @@ public class CustomerRepository {
     public Long findBySeller(String id) {
         return sql.selectOne("Customer.findId", id);
     }
+
+    public CustomerDTO findByUser(String loginId) {
+        return sql.selectOne("Customer.findByUser", loginId);
+    }
 }

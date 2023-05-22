@@ -48,7 +48,6 @@ public class BookController {
     @GetMapping("/shop")
     public String shop(Model model, HttpSession session) {
         List<BooksDTO> bookFileDTOList = bookService.findAll();
-        System.out.println(bookFileDTOList);
         String id = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", id);
         model.addAttribute("bookFileList", bookFileDTOList);
@@ -70,24 +69,47 @@ public class BookController {
 
     @GetMapping("/cart")
     public String bookCart(Model model, HttpSession session) {
-        List<BooksDTO> booksDTOList = bookService.findBooksList();
-        ResultDTO resultDTO = bookService.findSum();
-        System.out.println("resultDTO = " + resultDTO);
-        System.out.println(booksDTOList);
+        String loginId = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", loginId);
+
+        Long loginNum = bookService.findNum(loginId);
+
+        List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
+        ResultDTO sumDTO = bookService.findSum(loginNum);
+        System.out.println("sumDTO = " + sumDTO);
         model.addAttribute("bookList", booksDTOList);
-        String id = (String) session.getAttribute("loginDTO");
-        model.addAttribute("loginId", id);
-        model.addAttribute("sumDTO", resultDTO);
+        model.addAttribute("sumDTO", sumDTO);
         return "/bookPages/bookCart";
     }
 
 
     @PostMapping("/cart")
     public ResponseEntity cartParam(@ModelAttribute CartDTO cartDTO) {
-        System.out.println(cartDTO);
+        System.out.println("cartDTO = " + cartDTO);
         bookService.cartSave(cartDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    @GetMapping("/payment")
+    public String payment(HttpSession session, Model model) {
+        String loginId = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", loginId);
+        CustomerDTO customerDTO = customerService.findByUser(loginId);
+        model.addAttribute("customerDTO", customerDTO);
+        Long loginNum = bookService.findNum(loginId);
+        List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
+        ResultDTO sumDTO = bookService.findSum(loginNum);
+        System.out.println("booksDTOList = " + booksDTOList);
+        System.out.println("sumDTO = " + sumDTO);
+        model.addAttribute("bookList", booksDTOList);
+        model.addAttribute("sumDTO", sumDTO);
+        return "/bookPages/bookPayment";
+    }
+
+    @PostMapping("/payment")
+    public String paymentParam() {
+        return "redirect: /book/payment";
+    }
 
 }

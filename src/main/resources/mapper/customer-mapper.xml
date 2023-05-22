@@ -10,6 +10,12 @@
         values (#{name}, #{nickname}, #{email}, #{password}, #{address})
     </insert>
 
+    <select id="findByUser" parameterType="String" resultType="customer">
+        select *
+        from customer_table
+        where email = #{email}
+    </select>
+
     <select id="findByEmail" parameterType="String" resultType="String">
         select * from customer_table where email=#{email};
     </select>

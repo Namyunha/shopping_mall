@@ -32,4 +32,8 @@ public class CustomerService {
     public Long findBySeller(String id) {
         return customerRepository.findBySeller(id);
     }
+
+    public CustomerDTO findByUser(String loginId) {
+        return customerRepository.findByUser(loginId);
+    }
 }

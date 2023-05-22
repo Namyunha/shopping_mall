@@ -22,6 +22,10 @@
         values (#{bookId}, #{customerId}, #{bookCount})
     </insert>
 
+    <select id="findCart" parameterType="Long" resultType="cart">
+        select * from cart_table where customerId = #{customerId}
+    </select>
+
     <select id="selectList" resultType="books">
         select *
         from book_file_table f,
@@ -43,17 +47,30 @@
           and b.id = #{bookId};
     </select>
 
-    <select id="selectAll" resultType="books">
+    <select id="selectAll" parameterType="Long" resultType="books">
         select b.id, b.bookName, sum(c.bookCount) as 'unitsInStock', b.unitPrice
         from cart_table c,
              book_table b
-        where b.id = c.bookId
+        where b.sellerId = #{loginNum}
+          and b.id = c.bookId
         group by c.bookId;
     </select>
 
-    <select id="findSum" resultType="result">
-        select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount' from book_table b, cart_table c where b.id = c.bookId;
+<!--    select *-->
+<!--    from book_table b,-->
+<!--    cart_table c-->
+<!--    where b.sellerId = 2-->
+<!--    and b.id = c.bookId;-->
+
+    <select id="findSum" parameterType="Long" resultType="result">
+        select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
+        from book_table b,
+             cart_table c
+        where b.sellerId = #{id}
+          and b.id = c.bookId;
     </select>
+
+
 </mapper>
 
 

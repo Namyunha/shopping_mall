@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/resources/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/payment.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 
@@ -35,11 +36,9 @@
 <section class="py-5">
 
     <c:choose>
-
         <c:when test="${bookFileList == null}">
             <h1>등록된 도서가 없습니다.</h1>
         </c:when>
-
         <c:otherwise>
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -70,9 +69,7 @@
                 </div>
             </div>
         </c:otherwise>
-
     </c:choose>
-
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">

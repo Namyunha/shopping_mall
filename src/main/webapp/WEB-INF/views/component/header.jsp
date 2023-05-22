@@ -45,7 +45,7 @@
                         </button>
                     </c:when>
                     <c:otherwise>
-                        <a href="/book/cart?id=${}" class="btn btn-outline-dark">
+                        <a href="/book/cart" class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
                                 ${loginId}님의 장바구니
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
