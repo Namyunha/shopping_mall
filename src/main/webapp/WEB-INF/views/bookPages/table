@@ -1,151 +1,161 @@
-create table book_table  (
-    id bigint auto_increment not null primary key,
-    bookName varchar(50) not null,
-    bookPublisher varchar(20) not null,
-    bookAuthor varchar(20) not null,
-    bookPrice int
+create table book_table
+(
+    id           bigint auto_increment primary key,
+    sellerId     bigint,
+    bookName     varchar(50) not null,
+    unitPrice    bigint      not null,
+    unitsInStock bigint      not null default 0, -- 재고수 --
+    author       varchar(30),                    -- 설명 --
+    descript     varchar(20),                    -- 출판사 --
+    publisher    varchar(10),
+    category     varchar(10),
+    conditions   varchar(10),
+    fileAttached int                  default 0,
+    constraint fk_book_table_customer_table foreign key (sellerId) references customer_table (id) on delete cascade
 );
-insert into book_table(bookName, bookPublisher, bookAuthor, bookPrice)
-	value('세이노의 가르침', '데이원', '세이노', 6480);
-select * from book_table;
+
+
+select *
+from book_table;
+
+
+select *
+from customer_table;
+
+
 drop table if exists book_table;
 
-create table member_table (
-	id bigint auto_increment primary key,
-    memberEmail varchar(50) unique,
-    memberPassword varchar(20) not null,
-    memberName varchar(20) not null,
-    memberBirth date not null,
-    memberMobile varchar(30) not null
-);
-insert into member_table(memberEmail, memberPassword, memberName, memberBirth, memberMobile)
-	value('ajs998@naver.com', '1234', '세이노', 19950623, '01068441656');
-select * from member_table;
-drop table if exists member_table2;
 
-create table member_table2 (
-	id bigint auto_increment primary key,
-    memberId varchar(20) unique not null,
-    memberPassword varchar(20) not null,
-    memberName varchar(20) not null,
-    memberBirth date not null,
-    gender varchar(10),
-    memberEmail varchar(50) unique,
-    memberMobile varchar(30) not null
-);
-
-insert into member_table2(memberId, memberPassword, memberName, memberBirth, gender, memberEmail, memberMobile)
-	value('ajs998', '1234', '남윤하', 19950623, '남', 'ajs998@naver.com', '01068441656');
-select * from member_table2;
-
-drop table if exists board_table;
-drop table if exists board_file_table;
-
-
-
-insert into Board_table (boardWriter, boardPass, boardTitle, boardContents,fileAttached)
-	value('남윤하', '12345', '자바는즐거워',"더즐겁다", 1);
-insert into Board_table (boardWriter, boardPass, boardTitle, boardContents)
-	value('이은수', '678910', '파이썬은 즐거워',"이게더즐겁다");
-drop table if exists board_table;
-drop table if exists board_file_table;
-drop table if exists comment_table;
-drop table if exists member_table;
-drop table if exists member_file_table;
-
-select * from board_table;
-select * from board_file_table;
-insert into board_file_table (original_file_name, stored_file_name, board_id)
-	value('잡아', '잡아잡아', 1);
-
-create table board_file_table(
-	id bigint auto_increment primary key,
+create table book_file_table
+(
+    id               bigint auto_increment primary key,
     originalFileName varchar(100),
-    storedFileName varchar(100),
-    boardId bigint,
-    constraint fk_board_file_table foreign key(boardId) references board_table(id) on delete cascade
+    storedFileName   varchar(100),
+    bookId           bigint,
+    constraint fk_book_file_table_book_table foreign key (bookId) references book_table (id) on delete cascade
 );
 
-create table comment_table(
-	id bigint auto_increment primary key,
-    commentWriter varchar(20),
-    commentContents varchar(200),
-    boardId bigint ,
-	commentCreateDate datetime default now(),
-	constraint fk_comment foreign key (boardId) references board_table (id) on delete cascade
-);
-create table member_table(
-	id bigint auto_increment primary key,
-    memberId varchar(20) not null unique,
-    memberPassword varchar(20) not null,
-    memberName varchar(20) not null,
-    memberBirth varchar(20),
-    gender varchar(10) not null,
-    memberEmail varchar(20) not null unique,
-    memberMobile varchar(20) not null unique,
-    fileAttached int default 0
-);
+select unitPrice * unitsInStock
+from book_file_table f,
+     book_table b
+where f.bookId = b.id;
 
-insert into member_table(memberId, memberPassword, memberName, gender, memberEmail, memberMobile)
-	value('admin', '1234', '관리자', '남', 'admin@admin.com', '010-1111-1111');
+select *
+from book_file_table f,
+     book_table b
+where f.bookId = b.id;
 
-drop table if exists admint_table;
+select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
+from book_table b,
+     cart_table c
+where b.id = c.bookId;
 
-create table admin_table(
-	adminId varchar(20),
-    adminPassword varchar(20)
-);
+select sum(bookCount) as 'sumCount'
+from book_table b,
+     cart_table c
+where b.id = c.bookId;
 
-insert into admin_table (adminId, adminPassword)
-	values('admin', 999);
+select *
+from book_table b,
+     cart_table c
+where b.id = c.bookId;
 
-select * from admin_table;
+drop table if exists book_file_table;
 
-create table board_table (
-	id bigint auto_increment primary key,
-    boardWriter varchar(50) ,
-    boardPass varchar(20) not null,
-    boardTitle varchar(50) not null,
-    boardContents varchar(500) not null,
-    boardCreatedDate datetime default now(),
-    boardHits bigint default 0,
-    fileAttached int default 0,
-    memberId bigint,
-    constraint fk_board_table foreign key(memberId) references member_table(id) on delete cascade
-);
-create table member_file_table(
-	id bigint auto_increment primary key,
-    originalFileName varchar(100),
-    storedFileName varchar(100),
-    MemberId bigint,
-    constraint fk_board_file_table_board_table foreign key(MemberId) references member_table(id) on delete cascade
+
+create table category_table
+(
+
+    id   bigint auto_increment primary key,
+    name varchar(10)
+
 );
 
-select * from member_file_table;
-select * from member_table;
-select * from member_table m, member_file_table f where m.id = f.MemberId;
 
-create table book_table (
-	id bigint auto_increment primary key,
-    bookName varchar(50) not null,
-    unitPrice bigint not null,
-    unitsInStock bigint not null default 0, -- 재고수 --
-    author varchar(30),  -- 설명 --
-    descript varchar(10), -- 출판사 --
-    publisher varchar(10),
-    category varchar(10),
-    conditions varchar(10),
-    fileAttached int default 0
+select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
+from book_table b,
+     cart_table c
+where b.sellerId = 2
+  and b.id = c.bookId;
+
+select *
+from cart_table;
+
+
+
+create table cart_table
+(
+    id         bigint auto_increment primary key,
+    bookId     bigint not null,
+    customerId bigint not null,
+    bookCount  bigint default 0,
+    constraint fk_cart_table_bookId foreign key (bookId) references book_table (id) on delete cascade,
+    constraint fk_cart_table_customerId foreign key (customerId) references customer_table (id) on delete cascade
 );
 
-create table book_file_table(
-	id bigint auto_increment primary key,
-    originalFileName varchar(100),
-    storedFileName varchar(100),
-    bookId bigint,
-    constraint fk_book_file_table_book_table foreign key(bookId) references book_table(id) on delete cascade
+drop table if exists cart_table;
+
+create table customer_table
+(
+    id       bigint auto_increment primary key,
+    name     varchar(10) not null,
+    nickname varchar(10),
+    email    varchar(20),
+    password varchar(20),
+    address  varchar(100)
 );
 
-select * from book_table;
-select * from book_file_table;
+drop table if exists customer_table;
+
+
+create table order_table
+(
+
+    id          bigint auto_increment primary key,
+    bookId      bigint,
+    customerId  bigint,
+    quantity    bigint,
+    createdDate datetime default now(),
+    updatedDate datetime default now(),
+    memo        varchar(50),
+    constraint fk_order_table_book_table foreign key (bookId) references book_table (id) on delete cascade,
+    constraint fk_order_table_customer_table foreign key (customerId) references customer_table (id) on delete cascade
+
+);
+
+drop table if exists order_table;
+
+
+select *
+from book_table b,
+     cart_table c
+where b.id = c.bookId;
+
+select b.id, b.bookName, sum(c.bookCount), b.unitPrice
+from cart_table c,
+     book_table b
+where b.id = c.bookId
+group by c.bookId;
+
+select *
+from cart_table c,
+     book_table b
+where b.id = c.bookId;
+
+select sum(c.bookCount)
+from cart_table c,
+     book_table b
+where b.id = c.bookId
+group by c.bookId;
+
+select b.id, b.bookName, sum(c.bookCount) as 'bookCount', b.unitPrice
+from cart_table c,
+     book_table b
+where b.id = c.bookId
+group by c.bookId;
+
+select sum(bookCount)
+from cart_table
+group by bookId;
+
 
