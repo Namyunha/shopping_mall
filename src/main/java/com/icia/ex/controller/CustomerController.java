@@ -49,13 +49,19 @@ public class CustomerController {
         return "/customerPages/customerSave";
     }
 
+    @GetMapping("/mypage")
+    public String mypage(HttpSession session, Model model){
+        String id = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", id);
+        return "/customerPages/myPage";
+    }
+
     @PostMapping("/save")
     public String saveParam(@ModelAttribute CustomerDTO customerDTO) {
         System.out.println(customerDTO);
         customerService.save(customerDTO);
         return "/customerPages/customerLogin";
     }
-
 
     @PostMapping("/emailCheck")
     public ResponseEntity emailCheck(@RequestParam("email") String email) {

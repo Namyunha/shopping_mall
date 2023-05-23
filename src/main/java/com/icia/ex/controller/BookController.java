@@ -54,27 +54,24 @@ public class BookController {
         return "/bookPages/bookShop";
     }
 
-
     @GetMapping("/detail")
     public String bookDetail(@RequestParam("bookId") Long bookId, Model model, HttpSession session) {
         BooksDTO booksDTO = bookService.findById(bookId);
         model.addAttribute("booksDTO", booksDTO);
         String id = (String) session.getAttribute("loginDTO");
-        Long sellerId = customerService.findBySeller(id);
-        model.addAttribute("sellerId", sellerId);
         model.addAttribute("loginId", id);
+        Long visitorId = customerService.findBySeller(id);
+        model.addAttribute("sellerId", visitorId);
         return "/bookPages/bookDetail";
     }
-
 
     @GetMapping("/cart")
     public String bookCart(Model model, HttpSession session) {
         String loginId = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", loginId);
-
         Long loginNum = bookService.findNum(loginId);
-
         List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
+        System.out.println("booksDTOList = " + booksDTOList);
         ResultDTO sumDTO = bookService.findSum(loginNum);
         System.out.println("sumDTO = " + sumDTO);
         model.addAttribute("bookList", booksDTOList);
@@ -108,8 +105,9 @@ public class BookController {
     }
 
     @PostMapping("/payment")
-    public String paymentParam() {
-        return "redirect: /book/payment";
+    public ResponseEntity paymentParam(@ModelAttribute OrderDTO orderDTO) {
+        bookService.saveOrder(orderDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

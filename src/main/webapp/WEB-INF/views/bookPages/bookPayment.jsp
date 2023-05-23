@@ -95,13 +95,35 @@
             </div>
         </div>
     </div>
-
     <div>
         <button onclick="onPay()" type="button" class="btn btn-outline-dark">결제하기</button>
         <button type="button" class="btn btn-outline-danger">결제취소</button>
     </div>
 </form>
-
-
 </body>
+<script>
+    const onPay = () => {
+        $.ajax({
+            type: "post",
+            url: "/book/payment",
+            data: {
+                bookId: "${book.id}",
+                customerId: "${customerDTO.id}",
+                sumCount: ${sumDTO.sumCount},
+                sumPrice: ${sumDTO.sumPrice},
+                customerName: ${customerDTO.name},
+                payConditions: "결제대기",
+                shipmentConditions: "배송준비",
+                address: "${customerDTO.address}",
+                email: "${customerDTO.email}"
+            },
+            success: function () {
+                alert("결제성공");
+            },
+            error: function () {
+                alert("결제실패");
+            }
+        })
+    }
+</script>
 </html>

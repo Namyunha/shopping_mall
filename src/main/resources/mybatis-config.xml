@@ -9,5 +9,6 @@
         <typeAlias type="com.icia.ex.dto.CartDTO" alias="cart" />
         <typeAlias type="com.icia.ex.dto.CustomerDTO" alias="customer" />
         <typeAlias type="com.icia.ex.dto.ResultDTO" alias="result" />
+        <typeAlias type="com.icia.ex.dto.OrderDTO" alias="order" />
     </typeAliases>
 </configuration>

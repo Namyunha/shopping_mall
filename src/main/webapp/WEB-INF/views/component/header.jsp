@@ -29,7 +29,10 @@
                             <a class="nav-link" href="/book/save">Save</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/customer/logout">LogOut</a>
+                            <a class="nav-link" href="/customer/logout">Log Out</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/customer/mypage">My Page</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

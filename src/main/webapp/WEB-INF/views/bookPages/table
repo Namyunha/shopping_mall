@@ -18,6 +18,8 @@ create table book_table
 select *
 from book_table;
 
+select *
+from cart_table;
 
 select *
 from customer_table;
@@ -65,10 +67,8 @@ drop table if exists book_file_table;
 
 create table category_table
 (
-
     id   bigint auto_increment primary key,
     name varchar(10)
-
 );
 
 
@@ -110,14 +110,17 @@ drop table if exists customer_table;
 
 create table order_table
 (
-
-    id          bigint auto_increment primary key,
-    bookId      bigint,
-    customerId  bigint,
-    quantity    bigint,
-    createdDate datetime default now(),
-    updatedDate datetime default now(),
-    memo        varchar(50),
+    id                 bigint auto_increment primary key,
+    bookId             bigint,
+    customerId         bigint,
+    sumCount           bigint,
+    sumPrice           bigint,
+    customerName       varchar(20),
+    payConditions      varchar(20),
+    shipmentConditions varchar(20),
+    address            varchar(100),
+    email              varchar(20),
+    createdDate        datetime default now(),
     constraint fk_order_table_book_table foreign key (bookId) references book_table (id) on delete cascade,
     constraint fk_order_table_customer_table foreign key (customerId) references customer_table (id) on delete cascade
 
@@ -159,3 +162,8 @@ from cart_table
 group by bookId;
 
 
+select sum(c.bookCount * b.unitPrice), sum(bookCount)
+from book_table b,
+     cart_table c
+where c.customerId = 1
+  and b.id = c.bookId;

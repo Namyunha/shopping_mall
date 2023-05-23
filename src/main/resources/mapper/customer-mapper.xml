@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
 <mapper namespace="Customer">
     <insert id="save" parameterType="customer" useGeneratedKeys="true" keyProperty="id">
         insert into customer_table(name, nickname, email, password, address)
@@ -24,11 +22,13 @@
         select * from customer_table where email=#{email} and password=#{password};
     </select>
 
+
     <select id="findId" parameterType="String" resultType="Long">
         select id
         from customer_table
         where email = #{id};
     </select>
+
 
 </mapper>
 

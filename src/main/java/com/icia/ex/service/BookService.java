@@ -72,4 +72,7 @@ public class BookService {
         return bookRepository.findNum(loginId);
     }
 
+    public void saveOrder(OrderDTO orderDTO) {
+        bookRepository.saveOrder(orderDTO);
+    }
 }
