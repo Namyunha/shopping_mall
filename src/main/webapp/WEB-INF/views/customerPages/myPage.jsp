@@ -80,7 +80,10 @@
                                     <tbody>
                                     <tr>
                                         <td>${order.createdDate}</td>
-                                        <td>${bookList[0].bookName}외 ${countNum}권</td>
+                                        <td>${bookList[0].bookName}</td>
+                                        <c:if test="${countNum}>0">
+                                            <td>${bookList[0].bookName}외 ${countNum}권</td>
+                                        </c:if>
                                         <td>${order.address}</td>
                                         <td>${order.shipmentConditions}</td>
                                     </tr>

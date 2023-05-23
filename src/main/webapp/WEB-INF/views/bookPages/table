@@ -14,7 +14,6 @@ create table book_table
     constraint fk_book_table_customer_table foreign key (sellerId) references customer_table (id) on delete cascade
 );
 
-
 select *
 from book_table;
 
@@ -24,9 +23,7 @@ from cart_table;
 select *
 from customer_table;
 
-
 drop table if exists book_table;
-
 
 create table book_file_table
 (
@@ -64,23 +61,20 @@ where b.id = c.bookId;
 
 drop table if exists book_file_table;
 
-
 create table category_table
 (
     id   bigint auto_increment primary key,
     name varchar(10)
 );
 
-
 select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
 from book_table b,
      cart_table c
-where b.sellerId = 2
+where c.customerId = 2
   and b.id = c.bookId;
 
 select *
 from cart_table;
-
 
 
 create table cart_table
@@ -93,7 +87,9 @@ create table cart_table
     constraint fk_cart_table_customerId foreign key (customerId) references customer_table (id) on delete cascade
 );
 
+
 drop table if exists cart_table;
+
 
 create table customer_table
 (
@@ -105,13 +101,13 @@ create table customer_table
     address  varchar(100)
 );
 
+
 drop table if exists customer_table;
 
 
 create table order_table
 (
     id                 bigint auto_increment primary key,
-    bookId             bigint,
     customerId         bigint,
     sumCount           bigint,
     sumPrice           bigint,
@@ -121,10 +117,24 @@ create table order_table
     address            varchar(100),
     email              varchar(20),
     createdDate        datetime default now(),
-    constraint fk_order_table_book_table foreign key (bookId) references book_table (id) on delete cascade,
     constraint fk_order_table_customer_table foreign key (customerId) references customer_table (id) on delete cascade
-
 );
+
+
+select count(id) - 1  from order_table where customerId = 1;
+
+select b.id, b.bookName, sum(c.bookCount), b.unitPrice
+from cart_table c,
+     book_table b
+where c.customerId=1 and b.id = c.bookId
+group by c.bookId;
+
+
+select  b.bookName
+from cart_table c,
+     book_table b
+where c.customerId=1 and b.id = c.bookId
+group by c.bookId;
 
 drop table if exists order_table;
 
@@ -134,16 +144,15 @@ from book_table b,
      cart_table c
 where b.id = c.bookId;
 
-select b.id, b.bookName, sum(c.bookCount), b.unitPrice
-from cart_table c,
-     book_table b
-where b.id = c.bookId
-group by c.bookId;
+
+
+
 
 select *
 from cart_table c,
      book_table b
 where b.id = c.bookId;
+
 
 select sum(c.bookCount)
 from cart_table c,
@@ -151,11 +160,13 @@ from cart_table c,
 where b.id = c.bookId
 group by c.bookId;
 
+
 select b.id, b.bookName, sum(c.bookCount) as 'bookCount', b.unitPrice
 from cart_table c,
      book_table b
 where b.id = c.bookId
 group by c.bookId;
+
 
 select sum(bookCount)
 from cart_table

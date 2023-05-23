@@ -60,13 +60,13 @@ public class CustomerController {
     public String mypage(HttpSession session, Model model) {
         String id = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", id);
-
         Long loginNum = bookService.findNum(id);
         List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
         System.out.println("booksDTOList = " + booksDTOList);
         List<OrderDTO> orderDTOList = customerService.orderList(id);
         System.out.println("orderDTOList = " + orderDTOList);
         Long number = customerService.countNum(loginNum);
+        System.out.println(number);
         model.addAttribute("countNum", number);
         model.addAttribute("orderList", orderDTOList);
         model.addAttribute("bookList", booksDTOList);
