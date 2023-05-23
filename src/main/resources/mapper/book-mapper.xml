@@ -22,8 +22,8 @@
     </insert>
 
     <insert id="saveOrder" parameterType="order">
-        insert into order_table(bookId, customerId, sumCount, sumPrice, customerName, payConditions, shipmentConditions, address, email)
-        values (#{bookId}, #{customerId}, #{sumCount}, #{sumPrice}, #{customerName}, #{payConditions}, #{shipmentConditions}, #{address}, #{email})
+        insert into order_table(customerId, sumCount, sumPrice, customerName, payConditions, shipmentConditions, address, email)
+        values (#{customerId}, #{sumCount}, #{sumPrice}, #{customerName}, #{payConditions}, #{shipmentConditions}, #{address}, #{email})
     </insert>
 
     <select id="findCart" parameterType="Long" resultType="cart">
@@ -70,6 +70,9 @@
           and b.id = c.bookId;
     </select>
 
+    <select id="orderList" parameterType="String" resultType="order">
+        select * from order_table;
+    </select>
     <!--    select *-->
     <!--    from book_table b,-->
     <!--    cart_table c-->

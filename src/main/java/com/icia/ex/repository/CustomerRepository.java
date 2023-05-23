@@ -1,12 +1,16 @@
 package com.icia.ex.repository;
 
 import com.icia.ex.dto.CustomerDTO;
+import com.icia.ex.dto.OrderDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CustomerRepository {
+
     @Autowired
     private SqlSessionTemplate sql;
 
@@ -28,5 +32,14 @@ public class CustomerRepository {
 
     public CustomerDTO findByUser(String loginId) {
         return sql.selectOne("Customer.findByUser", loginId);
+    }
+
+
+    public List<OrderDTO> orderList(String id) {
+        return sql.selectList("Book.orderList", id);
+    }
+
+    public Long countNum(Long loginNum) {
+        return sql.selectOne("Customer.countNum", loginNum);
     }
 }

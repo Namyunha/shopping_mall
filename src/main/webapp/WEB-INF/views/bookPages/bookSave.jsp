@@ -45,10 +45,12 @@
         <label for="author" class="form-label">저자</label>
         <input type="text" class="form-control" name="author" id="author">
     </div>
+
     <div class="mb-3">
         <label for="descript" class="form-label">설명</label>
         <textarea class="form-control" name="descript" id="descript" rows="3"></textarea>
     </div>
+
     <div class="form-floating">
         <select class="form-select" id="floatingSelect" name="publisher" aria-label="Floating label select example">
             <option value="">Publisher</option>

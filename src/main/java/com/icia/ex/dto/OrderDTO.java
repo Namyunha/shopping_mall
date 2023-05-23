@@ -3,8 +3,10 @@ package com.icia.ex.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +23,6 @@ public class OrderDTO {
     private String shipmentConditions;
     private String address;
     private String email;
+    private List<String> bookName;
     private Timestamp createdDate;
 }

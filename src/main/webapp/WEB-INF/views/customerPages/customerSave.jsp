@@ -58,6 +58,7 @@
         <input type="text" id="sample6_detailAddress" placeholder="상세주소">
         <input type="text" id="sample6_extraAddress" placeholder="참고항목">
     </div>
+
     <button id="joinBtn" onclick="join()" class="w-100 btn btn-lg btn-primary">회원가입하기</button>
     <br>
     <input type="button" onclick="goBack()" class="w-100 btn btn-lg btn-dark" value="뒤로가기">

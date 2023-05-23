@@ -33,6 +33,7 @@
 <div class="m-md-3">
     <table class="table">
         <thead class="table-dark">
+
         <tr>
             <th>책 제목</th>
             <th>구매 수량</th>
@@ -41,10 +42,13 @@
         </tr>
         </thead>
         <tbody>
+
         <c:choose>
+
             <c:when test="${bookList == null}">
                 <h1>구매할 수 있는 도서가 없습니다.</h1>
             </c:when>
+
             <c:otherwise>
                 <c:forEach items="${bookList}" var="book">
                     <tr>
@@ -62,16 +66,19 @@
                     <td></td>
                 </tr>
             </c:otherwise>
+
         </c:choose>
         </tbody>
     </table>
 </div>
 
 <form class="wrapper m-md-3">
+
     <div style="width: 100%; display: flex">
         <button onclick="repositData()" style="width: 50%" type="button" class="btn btn-dark">저장정보</button>
         <button onclick="writeData()" style="width: 50%" type="button" class="btn btn-danger">직접입력</button>
     </div>
+
     <div id="data-area">
         <div class="row g-3" style="width: 100%">
             <div style="display: flex; width: 100%; align-items: center" class="col-auto">
@@ -80,6 +87,7 @@
                        readonly>
             </div>
         </div>
+
         <div class="row g-3" style="width: 100%">
             <div style="display: flex; width: 100%; align-items: center" class="col-auto">
                 <label style="width: 20%" for="address">배송지주소</label>
@@ -87,6 +95,7 @@
                        placeholder="${customerDTO.address}" readonly>
             </div>
         </div>
+
         <div class="row g-3" style="width: 100%">
             <div style="display: flex; width: 100%; align-items: center" class="col-auto">
                 <label style="width: 20%" for="email">이메일</label>
@@ -95,29 +104,33 @@
             </div>
         </div>
     </div>
+
     <div>
         <button onclick="onPay()" type="button" class="btn btn-outline-dark">결제하기</button>
         <button type="button" class="btn btn-outline-danger">결제취소</button>
     </div>
+
 </form>
 </body>
+
 <script>
+
     const onPay = () => {
         $.ajax({
             type: "post",
             url: "/book/payment",
             data: {
-                bookId: "${book.id}",
                 customerId: "${customerDTO.id}",
                 sumCount: ${sumDTO.sumCount},
                 sumPrice: ${sumDTO.sumPrice},
-                customerName: ${customerDTO.name},
+                customerName: "${customerDTO.name}",
                 payConditions: "결제대기",
                 shipmentConditions: "배송준비",
                 address: "${customerDTO.address}",
                 email: "${customerDTO.email}"
             },
             success: function () {
+                location.href="/customer/mypage";
                 alert("결제성공");
             },
             error: function () {
@@ -125,5 +138,6 @@
             }
         })
     }
+
 </script>
 </html>

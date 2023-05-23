@@ -65,6 +65,7 @@ public class BookController {
         return "/bookPages/bookDetail";
     }
 
+
     @GetMapping("/cart")
     public String bookCart(Model model, HttpSession session) {
         String loginId = (String) session.getAttribute("loginDTO");

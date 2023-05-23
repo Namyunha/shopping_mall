@@ -29,7 +29,9 @@
         where email = #{id};
     </select>
 
-
+    <select id="countNum" parameterType="Long" resultType="Long">
+        select count(id)-1 from order_table where customerId=#{loginNum}
+    </select>
 </mapper>
 
 

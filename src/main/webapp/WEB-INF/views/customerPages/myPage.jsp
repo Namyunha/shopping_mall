@@ -51,6 +51,7 @@
                     aria-selected="false">포인트충전내역
             </button>
         </div>
+
         <div style="width: 100%">
             <div style="width: 100%">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary " style="background-color: gray; width: 100%">
@@ -59,24 +60,38 @@
                     </div>
                 </nav>
                 <div style="width: 100%">
-                    <table class="table">
-                        <thead class="table-dark">
-                        <tr>
-                            <th>일자</th>
-                            <th>상품정보</th>
-                            <th>배송지</th>
-                            <th>배송상태</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>2000-00-00</td>
-                            <td>이미지,책제목,금액</td>
-                            <td>인천어딘가</td>
-                            <td>배송준비중</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <c:choose>
+                        <c:when test="${orderList == null}">
+                            <h1>결제 상품이 없습니다.</h1>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${orderList}" var="order">
+
+                                <table class="table">
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th>일자</th>
+                                        <th>상품정보</th>
+                                        <th>배송지</th>
+                                        <th>배송상태</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>${order.createdDate}</td>
+                                        <td>${bookList[0].bookName}외 ${countNum}권</td>
+                                        <td>${order.address}</td>
+                                        <td>${order.shipmentConditions}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </c:forEach>
+
+                        </c:otherwise>
+
+                    </c:choose>
+
                 </div>
             </div>
         </div>

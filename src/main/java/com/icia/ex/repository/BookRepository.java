@@ -39,7 +39,6 @@ public class BookRepository {
         return sql.selectList("Book.selectAll", loginNum);
     }
 
-
     public ResultDTO findSum(Long loginId) {
         return sql.selectOne("Book.findSum", loginId);
     }
