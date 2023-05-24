@@ -20,6 +20,8 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
+
+
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -28,6 +30,8 @@ public class CustomerController {
     public String login(HttpSession session) {
         return "/customerPages/customerLogin";
     }
+
+
 
     @PostMapping("/login")
     public String loginParam(@ModelAttribute CustomerDTO customerDTO, HttpSession session, Model model) {
@@ -43,11 +47,14 @@ public class CustomerController {
         }
     }
 
+
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect: /";
     }
+
 
 
     @GetMapping("/save")
@@ -56,20 +63,26 @@ public class CustomerController {
     }
 
 
+
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
         String id = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", id);
         Long loginNum = bookService.findNum(id);
+
         List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
         System.out.println("booksDTOList = " + booksDTOList);
-        List<OrderDTO> orderDTOList = customerService.orderList(id);
+
+        List<OrderDTO> orderDTOList = customerService.orderList(loginNum);
         System.out.println("orderDTOList = " + orderDTOList);
+
         Long number = customerService.countNum(loginNum);
         System.out.println(number);
+
         model.addAttribute("countNum", number);
         model.addAttribute("orderList", orderDTOList);
         model.addAttribute("bookList", booksDTOList);
+
         return "/customerPages/myPage";
     }
 

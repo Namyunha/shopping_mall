@@ -39,6 +39,7 @@
         <c:when test="${bookFileList == null}">
             <h1>등록된 도서가 없습니다.</h1>
         </c:when>
+
         <c:otherwise>
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -69,6 +70,7 @@
                 </div>
             </div>
         </c:otherwise>
+
     </c:choose>
 </section>
 <!-- Footer-->

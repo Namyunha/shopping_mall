@@ -28,9 +28,10 @@ const repositData = () => {
 // </div>
 const writeData = () => {
     const dataArea = document.querySelector("#data-area");
+
     $.ajax({
-        type: "post",
-        url: "/book/payment",
+        // type: "get",
+        // url: "/book/payment",
         success: function () {
             let output = "<div class=\"row g-3\">";
             output += "<div class=\"col-sm-7\">";

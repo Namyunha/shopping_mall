@@ -41,8 +41,8 @@ public class CustomerService {
     }
 
 
-    public List<OrderDTO> orderList(String id) {
-        return customerRepository.orderList(id);
+    public List<OrderDTO> orderList(Long loginNum) {
+        return customerRepository.orderList(loginNum);
     }
 
     public Long countNum(Long loginNum) {

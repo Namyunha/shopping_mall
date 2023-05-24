@@ -60,13 +60,15 @@
                     </div>
                 </nav>
                 <div style="width: 100%">
+
                     <c:choose>
+
                         <c:when test="${orderList == null}">
                             <h1>결제 상품이 없습니다.</h1>
                         </c:when>
+
                         <c:otherwise>
                             <c:forEach items="${orderList}" var="order">
-
                                 <table class="table">
                                     <thead class="table-dark">
                                     <tr>
@@ -76,21 +78,16 @@
                                         <th>배송상태</th>
                                     </tr>
                                     </thead>
-
                                     <tbody>
                                     <tr>
                                         <td>${order.createdDate}</td>
-                                        <td>${bookList[0].bookName}</td>
-                                        <c:if test="${countNum}>0">
-                                            <td>${bookList[0].bookName}외 ${countNum}권</td>
-                                        </c:if>
+                                        <td><a href="/book/info">${bookList[0].bookName} 외에 ${countNum}권</a></td>
                                         <td>${order.address}</td>
                                         <td>${order.shipmentConditions}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </c:forEach>
-
                         </c:otherwise>
 
                     </c:choose>

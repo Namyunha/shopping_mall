@@ -51,4 +51,8 @@ public class BookRepository {
     public void saveOrder(OrderDTO orderDTO) {
         sql.insert("Book.saveOrder", orderDTO);
     }
+
+    public void delete(Long id) {
+        sql.delete("Book.delete", id);
+    }
 }

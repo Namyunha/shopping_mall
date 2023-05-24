@@ -75,4 +75,8 @@ public class BookService {
     public void saveOrder(OrderDTO orderDTO) {
         bookRepository.saveOrder(orderDTO);
     }
+
+    public void delete(Long id) {
+        bookRepository.delete(id);
+    }
 }

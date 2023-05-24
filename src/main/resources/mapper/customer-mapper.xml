@@ -3,10 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Customer">
+
     <insert id="save" parameterType="customer" useGeneratedKeys="true" keyProperty="id">
         insert into customer_table(name, nickname, email, password, address)
         values (#{name}, #{nickname}, #{email}, #{password}, #{address})
     </insert>
+
 
     <select id="findByUser" parameterType="String" resultType="customer">
         select *
@@ -14,9 +16,11 @@
         where email = #{email}
     </select>
 
+
     <select id="findByEmail" parameterType="String" resultType="String">
         select * from customer_table where email=#{email};
     </select>
+
 
     <select id="login" parameterType="customer" resultType="customer">
         select * from customer_table where email=#{email} and password=#{password};
@@ -29,9 +33,11 @@
         where email = #{id};
     </select>
 
+
     <select id="countNum" parameterType="Long" resultType="Long">
-        select count(id)-1 from order_table where customerId=#{loginNum}
+        select count(distinct t.bookId)-1  from customer_table c, cart_table t where t.customerId=#{loginNum} and t.customerId=c.id;
     </select>
+
 </mapper>
 
 

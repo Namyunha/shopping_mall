@@ -45,6 +45,14 @@ public class BookController {
         return "/bookPages/bookShop";
     }
 
+
+    @PostMapping("delete")
+    public ResponseEntity deleteParam(@RequestParam("id") Long id) {
+        bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     @GetMapping("/shop")
     public String shop(Model model, HttpSession session) {
         List<BooksDTO> bookFileDTOList = bookService.findAll();
@@ -53,6 +61,7 @@ public class BookController {
         model.addAttribute("bookFileList", bookFileDTOList);
         return "/bookPages/bookShop";
     }
+
 
     @GetMapping("/detail")
     public String bookDetail(@RequestParam("bookId") Long bookId, Model model, HttpSession session) {
@@ -89,6 +98,20 @@ public class BookController {
     }
 
 
+    @GetMapping("/info")
+    public String bookInfo() {
+        return "/bookPages/bookInfo";
+    }
+
+
+    @PostMapping("/payment")
+    public ResponseEntity paymentParam(@ModelAttribute OrderDTO orderDTO) {
+        System.out.println("orderDTO = " + orderDTO);
+        bookService.saveOrder(orderDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     @GetMapping("/payment")
     public String payment(HttpSession session, Model model) {
         String loginId = (String) session.getAttribute("loginDTO");
@@ -96,19 +119,20 @@ public class BookController {
         CustomerDTO customerDTO = customerService.findByUser(loginId);
         model.addAttribute("customerDTO", customerDTO);
         Long loginNum = bookService.findNum(loginId);
+
         List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
+
         ResultDTO sumDTO = bookService.findSum(loginNum);
+
         System.out.println("booksDTOList = " + booksDTOList);
         System.out.println("sumDTO = " + sumDTO);
+
         model.addAttribute("bookList", booksDTOList);
         model.addAttribute("sumDTO", sumDTO);
         return "/bookPages/bookPayment";
     }
 
-    @PostMapping("/payment")
-    public ResponseEntity paymentParam(@ModelAttribute OrderDTO orderDTO) {
-        bookService.saveOrder(orderDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+
+
 
 }

@@ -57,6 +57,7 @@
     <link href="/resources/css/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
 
@@ -81,21 +82,26 @@
             <table class="table">
                 <thead class="table-dark">
                 <tr>
-                    <th>id</th>
+                    <th><input id="bookCheck" onclick="allClick()" type="checkbox"></th>
                     <th>도서명</th>
                     <th>가격</th>
                     <th>수량</th>
                     <th>합계</th>
+                    <th>삭제</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${bookList}" var="book">
                     <tr>
-                        <td>${book.id}</td>
+                        <td><input class="oneClick" type="checkbox"
+                                   onclick="onCheck(${book.unitsInStock}, ${book.unitsInStock*book.unitPrice})"></td>
                         <td>${book.bookName}</td>
                         <td>${book.unitPrice}</td>
-                        <td>${book.unitsInStock}</td>
-                        <td>${book.unitsInStock*book.unitPrice}</td>
+                        <td class="count"><input type="text" value="${book.unitsInStock}"></td>
+                        <td class="price">${book.unitsInStock*book.unitPrice}</td>
+                        <td>
+                            <button onclick="onDelete(`${book.id}`)">삭제</button>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -104,8 +110,9 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>총수량: ${sumDTO.sumCount}</td>
-                    <td>총금액: ${sumDTO.sumPrice}</td>
+                    <td></td>
+                    <td>총수량: <span id="sumCount"></span></td>
+                    <td>총금액: <span id="sumPrice"></span></td>
                 </tr>
                 </tfoot>
             </table>
@@ -113,9 +120,12 @@
     </c:choose>
 </div>
 
+
 <div class="m-md-3">
     <a href="/book/payment" class="w-100 btn btn-lg btn-primary" type="submit">구매하기</a>
     <a href="/book/shop" class="w-100 btn btn-lg btn-dark" type="submit">쇼핑하기</a>
 </div>
+
+
 </body>
 </html>

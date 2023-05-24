@@ -35,7 +35,7 @@ public class CustomerRepository {
     }
 
 
-    public List<OrderDTO> orderList(String id) {
+    public List<OrderDTO> orderList(Long id) {
         return sql.selectList("Book.orderList", id);
     }
 

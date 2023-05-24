@@ -61,6 +61,7 @@
           and b.id = c.bookId
         group by c.bookId;
     </select>
+    <!-- 장바구니에 책 목록 -->
 
     <select id="findSum" parameterType="Long" resultType="result">
         select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
@@ -70,14 +71,23 @@
           and b.id = c.bookId;
     </select>
 
-    <select id="orderList" parameterType="String" resultType="order">
-        select * from order_table;
+
+    <select id="orderList" parameterType="Long" resultType="order">
+        select *
+        from order_table
+        where customerId = #{id}
     </select>
+
+
     <!--    select *-->
     <!--    from book_table b,-->
     <!--    cart_table c-->
     <!--    where b.sellerId = 2-->
     <!--    and b.id = c.bookId;-->
+
+    <delete id="delete" parameterType="Long">
+        delete from cart_table where bookId = #{id};
+    </delete>
 
 </mapper>
 

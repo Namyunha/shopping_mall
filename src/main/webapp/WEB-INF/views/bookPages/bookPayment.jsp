@@ -112,7 +112,6 @@
 
 </form>
 </body>
-
 <script>
 
     const onPay = () => {
