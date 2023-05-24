@@ -55,30 +55,36 @@ const onCheck = (count, price) => {
     const sumPrice = document.querySelector("#sumPrice");
     const oneCount = document.querySelectorAll(".count");
     const onePrice = document.querySelectorAll(".price");
-
     let sumc = 0;
     let sump = 0;
-
     for (let i = 0; i < oneCheck.length; i++) {
         if (oneCheck[i].checked == true) {
             sumc += +oneCount[i].value.innerHTML;
             sump += +onePrice[i].value.innerHTML; // 문자열을 숫자로 변환하여 더함
         }
     }
-
     sumCount.innerHTML = sumc;
     sumPrice.innerHTML = sump;
-
 }
 
-const allClick = () => {
 
+const countChange = (unitsPrice) => {
+    const changeCount = document.querySelectorAll(".changeCount");
+    const price = document.querySelector(".price");
+    console.log(unitsPrice);
+
+    console.log(changeCount);
+    price.innerHTML = unitsPrice * changeCount;
+}
+
+
+const allClick = () => {
     const bookCheck = document.querySelector("#bookCheck");
     const oneCheck = document.querySelectorAll(".oneClick");
     const sumCount = document.querySelector("#sumCount");
     const sumPrice = document.querySelector("#sumPrice");
-    const oneCount = document.querySelectorAll(".count");
-    const onePrice = document.querySelectorAll(".price");
+    const oneCount = document.querySelectorAll("#changeCount");
+    const onePrice = document.querySelectorAll("#price");
 
     let sumc = 0;
     let sump = 0;
@@ -102,12 +108,12 @@ const allClick = () => {
 const onDelete = (id) => {
     $.ajax({
         type: "post",
-        url: "/book/delete?id="+id,
-        success: function (){
-            location.href="/book/cart"
+        url: "/book/delete?id=" + id,
+        success: function () {
+            location.href = "/book/cart"
             alert("삭제에 성공하셨습니다.");
         },
-        error: function (){
+        error: function () {
             alert("삭제에 실패하셨습니다.")
         }
     })

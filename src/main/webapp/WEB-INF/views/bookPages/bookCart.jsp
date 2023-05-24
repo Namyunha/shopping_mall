@@ -97,8 +97,8 @@
                                    onclick="onCheck(${book.unitsInStock}, ${book.unitsInStock*book.unitPrice})"></td>
                         <td>${book.bookName}</td>
                         <td>${book.unitPrice}</td>
-                        <td class="count"><input type="text" value="${book.unitsInStock}"></td>
-                        <td class="price">${book.unitsInStock*book.unitPrice}</td>
+                        <td class="count"><input id="changeCount" class="changeCount" onblur="countChange(`${book.unitPrice}`)" type="text" value="${book.unitsInStock}"></td>
+                        <td id="price" class="price">${book.unitsInStock*book.unitPrice}</td>
                         <td>
                             <button onclick="onDelete(`${book.id}`)">삭제</button>
                         </td>
