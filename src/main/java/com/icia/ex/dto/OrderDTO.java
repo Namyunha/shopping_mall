@@ -14,7 +14,6 @@ import java.util.List;
 
 public class OrderDTO {
     private Long id;
-    private Long bookId;
     private Long customerId;
     private Long sumCount;
     private Long sumPrice;
@@ -23,6 +22,6 @@ public class OrderDTO {
     private String shipmentConditions;
     private String address;
     private String email;
-    private List<String> bookName;
     private Timestamp createdDate;
+    private List<BooksDTO> books;
 }

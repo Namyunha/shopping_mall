@@ -9,12 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
+
     public void save(BookDTO bookDTO) throws IOException {
         if (bookDTO.getBookFile().get(0).isEmpty()) {
             System.out.println("파일없음");
@@ -78,5 +80,18 @@ public class BookService {
 
     public void delete(Long id) {
         bookRepository.delete(id);
+    }
+
+    public void update(Map<String, Long> updateInfo) {
+        bookRepository.update(updateInfo);
+    }
+
+
+    public void updateCart(Map<String, Long> updateInfo) {
+        bookRepository.updateCart(updateInfo);
+    }
+
+    public void updateBook(Map<String, Long> updateInfo) {
+        bookRepository.updateBook(updateInfo);
     }
 }

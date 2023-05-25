@@ -1,5 +1,6 @@
 package com.icia.ex.repository;
 
+import com.icia.ex.dto.CbookDTO;
 import com.icia.ex.dto.CustomerDTO;
 import com.icia.ex.dto.OrderDTO;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,5 +42,9 @@ public class CustomerRepository {
 
     public Long countNum(Long loginNum) {
         return sql.selectOne("Customer.countNum", loginNum);
+    }
+
+    public List<CbookDTO> cbookList(Long loginNum) {
+        return sql.selectList("Book.cbookList", loginNum);
     }
 }

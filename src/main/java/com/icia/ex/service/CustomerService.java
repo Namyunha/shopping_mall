@@ -1,5 +1,6 @@
 package com.icia.ex.service;
 
+import com.icia.ex.dto.CbookDTO;
 import com.icia.ex.dto.CustomerDTO;
 import com.icia.ex.dto.OrderDTO;
 import com.icia.ex.repository.CustomerRepository;
@@ -47,5 +48,9 @@ public class CustomerService {
 
     public Long countNum(Long loginNum) {
         return customerRepository.countNum(loginNum);
+    }
+
+    public List<CbookDTO> cbookList(Long loginNum) {
+        return customerRepository.cbookList(loginNum);
     }
 }

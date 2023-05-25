@@ -10,12 +10,12 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class BooksDTO {
+public class CbookDTO {
     private Long id;
     private Long sellerId;
+    private Long buyerId;
     private Long unitPrice; // 도서 가격
     private Long unitsInStock; // 재고수
-    private Long buyCount;
     private String bookName;
     private String author; // 저자
     private String descript; // 설명
@@ -23,8 +23,8 @@ public class BooksDTO {
     private String category;
     private String conditions; // 신규 or 중고 or E-Book
     private int fileAttached;
-    private String originalFileName;
-    private String storedFileName;
+    private List<MultipartFile> bookFile;
     private Long bookId;
-
+    private Long customerId;
+    private Long bookCount;
 }

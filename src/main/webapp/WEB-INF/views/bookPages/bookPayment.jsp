@@ -113,30 +113,5 @@
 </form>
 </body>
 <script>
-
-    const onPay = () => {
-        $.ajax({
-            type: "post",
-            url: "/book/payment",
-            data: {
-                customerId: "${customerDTO.id}",
-                sumCount: ${sumDTO.sumCount},
-                sumPrice: ${sumDTO.sumPrice},
-                customerName: "${customerDTO.name}",
-                payConditions: "결제대기",
-                shipmentConditions: "배송준비",
-                address: "${customerDTO.address}",
-                email: "${customerDTO.email}"
-            },
-            success: function () {
-                location.href="/customer/mypage";
-                alert("결제성공");
-            },
-            error: function () {
-                alert("결제실패");
-            }
-        })
-    }
-
 </script>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BookRepository {
@@ -54,5 +55,17 @@ public class BookRepository {
 
     public void delete(Long id) {
         sql.delete("Book.delete", id);
+    }
+
+    public void update(Map<String, Long> updateInfo) {
+        sql.update("Book.updateBook", updateInfo);
+    }
+
+    public void updateCart(Map<String, Long> updateInfo) {
+        sql.update("");
+    }
+
+    public void updateBook(Map<String, Long> updateInfo) {
+        sql.update("");
     }
 }

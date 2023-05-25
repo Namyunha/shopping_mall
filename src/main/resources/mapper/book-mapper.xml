@@ -4,6 +4,7 @@
 
 
 <mapper namespace="Book">
+
     <insert id="save" parameterType="book" useGeneratedKeys="true" keyProperty="id">
         insert into book_table(sellerId, bookName, unitPrice, unitsInStock, author, descript, publisher, category,
                                conditions, fileAttached)
@@ -22,9 +23,12 @@
     </insert>
 
     <insert id="saveOrder" parameterType="order">
-        insert into order_table(customerId, sumCount, sumPrice, customerName, payConditions, shipmentConditions, address, email)
-        values (#{customerId}, #{sumCount}, #{sumPrice}, #{customerName}, #{payConditions}, #{shipmentConditions}, #{address}, #{email})
+        insert into order_table(customerId, sumCount, sumPrice, customerName, payConditions, shipmentConditions,
+                                address, email)
+        values (#{customerId}, #{sumCount}, #{sumPrice}, #{customerName}, #{payConditions}, #{shipmentConditions},
+                #{address}, #{email})
     </insert>
+    <!--장바구니 넣은 후에 책의 buyer 값과 buyCount 넣어주기-->
 
     <select id="findCart" parameterType="Long" resultType="cart">
         select *
@@ -45,6 +49,7 @@
         where bookId = #{id};
     </select>
 
+
     <select id="findById" parameterType="Long" resultType="books">
         select *
         from book_file_table f,
@@ -52,6 +57,7 @@
         where f.bookId = b.id
           and b.id = #{bookId};
     </select>
+
 
     <select id="selectAll" parameterType="Long" resultType="books">
         select b.id, b.bookName, sum(c.bookCount) as 'unitsInStock', b.unitPrice, b.sellerId
@@ -62,6 +68,7 @@
         group by c.bookId;
     </select>
     <!-- 장바구니에 책 목록 -->
+
 
     <select id="findSum" parameterType="Long" resultType="result">
         select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
@@ -79,6 +86,14 @@
     </select>
 
 
+    <select id="cbookList" parameterType="Long" resultType="cbook">
+        select *
+        from book_table b,
+             cart_table c
+        where c.customerId = #{loginNum}
+          and c.bookId = b.id;
+    </select>
+
     <!--    select *-->
     <!--    from book_table b,-->
     <!--    cart_table c-->
@@ -86,9 +101,23 @@
     <!--    and b.id = c.bookId;-->
 
     <delete id="delete" parameterType="Long">
-        delete from cart_table where bookId = #{id};
+        delete
+        from cart_table
+        where bookId = #{id};
     </delete>
 
+    <update id="updateCart" parameterType="java.util.Map">
+        update cart_table
+        set bookCount=#{bookCount}
+        where bookId = #{bookId};
+    </update>
+
+
+    <update id="updateBook" parameterType="java.util.Map">
+        update book_table
+        set unitsInStock=#{unitsInStock}
+        where id = #{bookId};
+    </update>
 </mapper>
 
 

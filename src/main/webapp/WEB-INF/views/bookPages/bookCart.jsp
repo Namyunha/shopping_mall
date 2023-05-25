@@ -94,11 +94,14 @@
                 <c:forEach items="${bookList}" var="book">
                     <tr>
                         <td><input class="oneClick" type="checkbox"
-                                   onclick="onCheck(${book.unitsInStock}, ${book.unitsInStock*book.unitPrice})"></td>
+                                   onclick="onCheck(`${book.id}`)"></td>
                         <td>${book.bookName}</td>
                         <td>${book.unitPrice}</td>
-                        <td class="count"><input id="changeCount" class="changeCount" onblur="countChange(`${book.unitPrice}`)" type="text" value="${book.unitsInStock}"></td>
-                        <td id="price" class="price">${book.unitsInStock*book.unitPrice}</td>
+                        <td><input id="${book.id}" class="count"
+                                   onblur="countChange(`${book.id}`,`${book.unitPrice}`,`${book.unitsInStock}`)"
+                                   type="text" value="${book.unitsInStock}"> <span
+                                style="color: red">재고수량: ${book.unitsInStock}</span></td>
+                        <td id="${book.id}Price" class="price">${book.unitsInStock*book.unitPrice}</td>
                         <td>
                             <button onclick="onDelete(`${book.id}`)">삭제</button>
                         </td>
@@ -120,12 +123,45 @@
     </c:choose>
 </div>
 
-
 <div class="m-md-3">
-    <a href="/book/payment" class="w-100 btn btn-lg btn-primary" type="submit">구매하기</a>
+    <input type="button" onclick="buyBtn()"
+           class="w-100 btn btn-lg btn-primary" value="구매하기">
     <a href="/book/shop" class="w-100 btn btn-lg btn-dark" type="submit">쇼핑하기</a>
 </div>
 
+<script>
+
+
+    <%--const buyBtn = () => {--%>
+    <%--    $.ajax({--%>
+    <%--        type: "post",--%>
+    <%--        url: "/book/payment",--%>
+    <%--        data: {--%>
+    <%--            customerId: ${customerDTO.id},--%>
+    <%--            sumCount: ${sumDTO.sumCount},--%>
+    <%--            sumPrice: ${sumDTO.sumPrice},--%>
+    <%--            customerName: `${customerDTO.name}`,--%>
+    <%--            payConditions: "결제대기",--%>
+    <%--            shipmentConditions: "배송준비",--%>
+    <%--            address: `${customerDTO.address}`,--%>
+    <%--            email: `${customerDTO.email}`--%>
+    <%--        },--%>
+    <%--        success: function () {--%>
+    <%--            const result = confirm("구매페이지로 가시겠습니까?");--%>
+    <%--            if (result) {--%>
+    <%--                location.href = "/book/payment";--%>
+    <%--            } else {--%>
+    <%--                location.href = "/book/shop";--%>
+    <%--            }--%>
+    <%--        },--%>
+    <%--        error: function () {--%>
+    <%--            alert("물건을 구매 하실수 없습니다.");--%>
+    <%--        }--%>
+    <%--    })--%>
+    <%--}--%>
+
+
+</script>
 
 </body>
 </html>
