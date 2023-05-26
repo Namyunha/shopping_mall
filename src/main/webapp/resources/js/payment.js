@@ -28,7 +28,6 @@ const repositData = () => {
 // </div>
 const writeData = () => {
     const dataArea = document.querySelector("#data-area");
-
     $.ajax({
         // type: "get",
         // url: "/book/payment",

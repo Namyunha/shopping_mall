@@ -36,7 +36,7 @@ public class BookRepository {
         sql.insert("Book.saveCart", cartDTO);
     }
 
-    public List<BooksDTO> findBooksList(Long loginNum) {
+    public List<CbookDTO> findBooksList(Long loginNum) {
         return sql.selectList("Book.selectAll", loginNum);
     }
 
@@ -62,10 +62,12 @@ public class BookRepository {
     }
 
     public void updateCart(Map<String, Long> updateInfo) {
-        sql.update("");
+        System.out.println("updateInfoCart: " + updateInfo);
+        sql.update("Book.updateCart", updateInfo);
     }
 
     public void updateBook(Map<String, Long> updateInfo) {
-        sql.update("");
+        System.out.println("updateInfoBook: " + updateInfo);
+        sql.update("Book.updateBook", updateInfo);
     }
 }

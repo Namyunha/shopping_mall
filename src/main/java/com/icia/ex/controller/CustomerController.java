@@ -2,6 +2,7 @@ package com.icia.ex.controller;
 
 
 import com.icia.ex.dto.BooksDTO;
+import com.icia.ex.dto.CbookDTO;
 import com.icia.ex.dto.CustomerDTO;
 import com.icia.ex.dto.OrderDTO;
 import com.icia.ex.service.BookService;
@@ -70,7 +71,7 @@ public class CustomerController {
         model.addAttribute("loginId", id);
         Long loginNum = bookService.findNum(id);
 
-        List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
+        List<CbookDTO> booksDTOList = bookService.findBooksList(loginNum);
         System.out.println("booksDTOList = " + booksDTOList);
 
         List<OrderDTO> orderDTOList = customerService.orderList(loginNum);

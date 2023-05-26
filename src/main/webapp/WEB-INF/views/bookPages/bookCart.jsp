@@ -75,9 +75,11 @@
 
 <div class="m-md-3">
     <c:choose>
+
         <c:when test="${bookList == null}">
             <h1>등록된 도서가 없습니다.</h1>
         </c:when>
+
         <c:otherwise>
             <table class="table">
                 <thead class="table-dark">
@@ -90,6 +92,7 @@
                     <th>삭제</th>
                 </tr>
                 </thead>
+
                 <tbody>
                 <c:forEach items="${bookList}" var="book">
                     <tr>
@@ -99,7 +102,7 @@
                         <td>${book.unitPrice}</td>
                         <td><input id="${book.id}" class="count"
                                    onblur="countChange(`${book.id}`,`${book.unitPrice}`,`${book.unitsInStock}`)"
-                                   type="text" value="${book.unitsInStock}"> <span
+                                   type="text" value="${book.unitsInStock}"> <span id="${book.id}Span"
                                 style="color: red">재고수량: ${book.unitsInStock}</span></td>
                         <td id="${book.id}Price" class="price">${book.unitsInStock*book.unitPrice}</td>
                         <td>
@@ -108,6 +111,7 @@
                     </tr>
                 </c:forEach>
                 </tbody>
+
                 <tfoot class="table-primary">
                 <tr>
                     <td></td>
@@ -120,18 +124,17 @@
                 </tfoot>
             </table>
         </c:otherwise>
+
     </c:choose>
 </div>
 
 <div class="m-md-3">
-    <input type="button" onclick="buyBtn()"
-           class="w-100 btn btn-lg btn-primary" value="구매하기">
+    <input id="buyBtn" type="button" onclick="buyBtn()"
+           class="w-100 btn btn-lg btn-primary" value="구매하기" disabled>
     <a href="/book/shop" class="w-100 btn btn-lg btn-dark" type="submit">쇼핑하기</a>
 </div>
 
 <script>
-
-
     <%--const buyBtn = () => {--%>
     <%--    $.ajax({--%>
     <%--        type: "post",--%>
@@ -159,8 +162,6 @@
     <%--        }--%>
     <%--    })--%>
     <%--}--%>
-
-
 </script>
 
 </body>

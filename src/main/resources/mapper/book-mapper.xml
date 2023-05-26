@@ -49,7 +49,6 @@
         where bookId = #{id};
     </select>
 
-
     <select id="findById" parameterType="Long" resultType="books">
         select *
         from book_file_table f,
@@ -58,8 +57,7 @@
           and b.id = #{bookId};
     </select>
 
-
-    <select id="selectAll" parameterType="Long" resultType="books">
+    <select id="selectAll" parameterType="Long" resultType="cbook">
         select b.id, b.bookName, sum(c.bookCount) as 'unitsInStock', b.unitPrice, b.sellerId
         from cart_table c,
              book_table b
@@ -69,7 +67,6 @@
     </select>
     <!-- 장바구니에 책 목록 -->
 
-
     <select id="findSum" parameterType="Long" resultType="result">
         select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
         from book_table b,
@@ -78,13 +75,11 @@
           and b.id = c.bookId;
     </select>
 
-
     <select id="orderList" parameterType="Long" resultType="order">
         select *
         from order_table
         where customerId = #{id}
     </select>
-
 
     <select id="cbookList" parameterType="Long" resultType="cbook">
         select *
@@ -93,12 +88,6 @@
         where c.customerId = #{loginNum}
           and c.bookId = b.id;
     </select>
-
-    <!--    select *-->
-    <!--    from book_table b,-->
-    <!--    cart_table c-->
-    <!--    where b.sellerId = 2-->
-    <!--    and b.id = c.bookId;-->
 
     <delete id="delete" parameterType="Long">
         delete
@@ -112,12 +101,13 @@
         where bookId = #{bookId};
     </update>
 
-
     <update id="updateBook" parameterType="java.util.Map">
         update book_table
-        set unitsInStock=#{unitsInStock}
+        set unitsInStock=#{unitsInStocks}
         where id = #{bookId};
     </update>
+
+
 </mapper>
 
 

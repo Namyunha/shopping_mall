@@ -127,23 +127,21 @@ public class BookController {
 
     @GetMapping("/payment")
     public String payment(@ModelAttribute OrderDTO orderDTO, HttpSession session, Model model) {
-
 //        System.out.println("Get: orderDTO = " + orderDTO);
 //        bookService.saveOrder(orderDTO);
-
         String loginId = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", loginId);
+
         CustomerDTO customerDTO = customerService.findByUser(loginId);
         model.addAttribute("customerDTO", customerDTO);
+
         Long loginNum = bookService.findNum(loginId);
+        List<CbookDTO> cbookDTOList = bookService.findBooksList(loginNum);
+        System.out.println("booksDTOList = " + cbookDTOList);
+        model.addAttribute("bookList", cbookDTOList);
 
-        List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
         ResultDTO sumDTO = bookService.findSum(loginNum);
-
-        System.out.println("booksDTOList = " + booksDTOList);
         System.out.println("sumDTO = " + sumDTO);
-
-        model.addAttribute("bookList", booksDTOList);
         model.addAttribute("sumDTO", sumDTO);
         return "/bookPages/bookPayment";
 
@@ -157,15 +155,14 @@ public class BookController {
         Long unitsInStocks = cBookDTO.getUnitsInStock();
         Map<String, Long> updateInfo = new HashMap<>();
 
+        System.out.println("cBookDTO: " + cBookDTO);
         updateInfo.put("bookId", bookId);
         updateInfo.put("bookCount", bookCount);
         updateInfo.put("unitsInStocks", unitsInStocks);
 
+        System.out.println("updateInfo: "+updateInfo);
         bookService.updateCart(updateInfo);
         bookService.updateBook(updateInfo);
-//        System.out.println("Post: orderDTO = " + orderDTO);
-//        bookService.saveOrder(orderDTO);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

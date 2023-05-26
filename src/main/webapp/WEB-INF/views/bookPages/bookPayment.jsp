@@ -41,6 +41,7 @@
             <th>결제 상태</th>
         </tr>
         </thead>
+
         <tbody>
 
         <c:choose>
@@ -58,16 +59,16 @@
                         <td>미결제</td>
                     </tr>
                 </c:forEach>
-
                 <tr>
-                    <td>총 수량: ${sumDTO.sumCount}</td>
-                    <td>총 결제금액: ${sumDTO.sumPrice}</td>
+                    <td>총 수량: ${book.bookCount}</td>
+                    <td>총 결제금액: ${book.bookCount}</td>
                     <td></td>
                     <td></td>
                 </tr>
             </c:otherwise>
 
         </c:choose>
+
         </tbody>
     </table>
 </div>
