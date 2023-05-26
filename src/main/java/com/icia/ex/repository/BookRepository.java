@@ -44,7 +44,6 @@ public class BookRepository {
         return sql.selectOne("Book.findSum", loginId);
     }
 
-
     public Long findNum(String loginId) {
         return sql.selectOne("Customer.findId", loginId);
     }
