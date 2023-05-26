@@ -61,6 +61,7 @@ public class BookService {
     public List<CbookDTO> findBooksList(Long loginNum) {
         return bookRepository.findBooksList(loginNum);
     }
+
     public ResultDTO findSum(Long loginId) {
         return bookRepository.findSum(loginId);
     }

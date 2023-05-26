@@ -37,7 +37,7 @@ public class BookRepository {
     }
 
     public List<CbookDTO> findBooksList(Long loginNum) {
-        return sql.selectList("Book.selectAll", loginNum);
+        return sql.selectList("Book.cbookList", loginNum);
     }
 
     public ResultDTO findSum(Long loginId) {

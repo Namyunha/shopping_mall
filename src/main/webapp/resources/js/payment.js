@@ -1,38 +1,13 @@
-// const repositData = () =>{
-//     const dataArea = document.querySelector("#data-area");
-//     $.ajax({
-//         type: "post",
-//         url: "/book/payment",
-//         success: function () {
-//
-//         },
-//         error: function (){
-//
-//         }
-//     })
-// }
 const repositData = () => {
     location.href = "/book/payment";
 }
 
-// <div className="row g-3">
-//     <div className="col-sm-7">
-//         <input type="text" className="form-control" placeholder="City" aria-label="City">
-//     </div>
-//     <div className="col-sm">
-//         <input type="text" className="form-control" placeholder="State" aria-label="State">
-//     </div>
-//     <div className="col-sm">
-//         <input type="text" className="form-control" placeholder="Zip" aria-label="Zip">
-//     </div>
-// </div>
 const writeData = () => {
     const dataArea = document.querySelector("#data-area");
     $.ajax({
-        // type: "get",
-        // url: "/book/payment",
         success: function () {
             let output = "<div class=\"row g-3\">";
+            output += "<form id='address_form' name='address_form' action='/book/payment' method='post'>";
             output += "<div class=\"col-sm-7\">";
             output += "<input type=\"text\" class='form-control' id=\"sample6_postcode\" name=\"postcode\" placeholder=\"우편번호\">";
             output += "</div>";
@@ -50,6 +25,7 @@ const writeData = () => {
             output += "<div class=\"col-sm\">";
             output += "<input type=\"text\" class='form-control' id=\"sample6_extraAddress\" placeholder=\"참고항목\">";
             output += "</div>";
+            output += "</form>";
             output += "</div>";
             dataArea.innerHTML = output;
         },
@@ -57,7 +33,7 @@ const writeData = () => {
             alert("선택실패");
         }
     })
-    sample6_execDaumPostcode = () =>{
+    sample6_execDaumPostcode = () => {
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

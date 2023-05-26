@@ -43,11 +43,13 @@
         where f.bookId = b.id;
     </select>
 
+
     <select id="selectFile" parameterType="Long" resultType="bookFile">
         select *
         from book_file_table
         where bookId = #{id};
     </select>
+
 
     <select id="findById" parameterType="Long" resultType="books">
         select *
@@ -57,6 +59,7 @@
           and b.id = #{bookId};
     </select>
 
+
     <select id="selectAll" parameterType="Long" resultType="cbook">
         select b.id, b.bookName, sum(c.bookCount) as 'unitsInStock', b.unitPrice, b.sellerId
         from cart_table c,
@@ -65,7 +68,10 @@
           and b.id = c.bookId
         group by c.bookId;
     </select>
+
+
     <!-- 장바구니에 책 목록 -->
+
 
     <select id="findSum" parameterType="Long" resultType="result">
         select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
