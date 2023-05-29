@@ -69,4 +69,16 @@ public class BookRepository {
         System.out.println("updateInfoBook: " + updateInfo);
         sql.update("Book.updateBook", updateInfo);
     }
+
+    public void saveChange(ChangebookDTO changebookDTO) {
+        sql.insert("Book.saveChangeBook", changebookDTO);
+    }
+
+    public void changeSave(List<ChangebookDTO> books) {
+        sql.insert("Book.saveChangeList", books);
+    }
+
+    public CartDTO findCart(Long loginNum) {
+        return sql.selectOne("Book.findCart", loginNum);
+    }
 }

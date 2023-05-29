@@ -34,7 +34,7 @@ const addCart = (id, sellerId) => {
     let inputQuantity = document.querySelector("#inputQuantity").value;
     $.ajax({
         type: "post",
-        url: "/book/cart",
+        url: "/book/detail",
         data: {
             bookId: id,
             bookCount: inputQuantity,
@@ -61,16 +61,13 @@ const onCheck = () => {
     const onePrice = document.querySelectorAll(".price");
     let sumc = 0;
     let sump = 0;
-
     console.log(sumC);
     console.log(sumP);
-
     if (sumC == 0 && sumP == 0) {
         buyBtn.disabled = false;
     } else {
         buyBtn.disabled = true;
     }
-
     for (let i = 0; i < oneCheck.length; i++) {
         let checkCount = oneCheck[i].checked;
         console.log(checkCount);
@@ -79,15 +76,13 @@ const onCheck = () => {
             sump += +onePrice[i].innerHTML; // 문자열을 숫자로 변환하여 더함
         }
     }
-
     sumCount.innerHTML = sumc;
     sumPrice.innerHTML = sump;
 }
 
-const countChange = (id, unitPrice, unitsInStock) => {
+const countChange = (id, unitPrice, unitsInStock, customerId, bookName) => {
     const bookPrice = document.getElementById(id + "Price");
     const bookSpan = document.getElementById(id + "Span");
-
     let bookId = document.getElementById(id);
     let inputQuantity = parseInt(bookId.value); // 입력된 수량을 숫자로 변환
     let unitsInstocks = unitsInStock - inputQuantity;
@@ -112,9 +107,12 @@ const countChange = (id, unitPrice, unitsInStock) => {
             type: "post",
             url: "/book/payment",
             data: {
+                customerId: customerId,
                 bookId: id,
                 bookCount: inputQuantity,
-                unitsInStock: unitsInstocks
+                unitsInStock: unitsInstocks,
+                unitPrice: unitPrice,
+                bookName: bookName
             },
             success: function () {
                 console.log("수량변경 성공");
@@ -129,7 +127,6 @@ const countChange = (id, unitPrice, unitsInStock) => {
 
 
 const allClick = () => {
-
     const bookCheck = document.querySelector("#bookCheck");
     const oneCheck = document.querySelectorAll(".oneClick");
     const sumCount = document.querySelector("#sumCount");
@@ -157,7 +154,6 @@ const allClick = () => {
     sumPrice.innerHTML = sump;
 }
 
-
 const onDelete = (id) => {
     $.ajax({
         type: "post",
@@ -173,9 +169,46 @@ const onDelete = (id) => {
 }
 
 
-const buyBtn = () => {
-    location.href="/book/payment";
+function buyBtn() {
+    // 선택된 체크박스 가져오기
+    let checkboxes = document.querySelectorAll('input.oneClick:checked');
+    // DTO 객체 생성
+    const dto = {
+        books: []
+    };
+    // 선택된 체크박스에 대해 반복하여 ID와 도서 수량을 DTO에 추가
+    checkboxes.forEach(function (checkbox) {
+        let bookId = checkbox.getAttribute('onclick').match(/`([^`]*)`/)[1]; // 체크박스의 onclick 속성에서 bookId 추출
+        let bookCountInput = document.getElementById(bookId);
+        let bookCount = bookCountInput.value;
+        let customerId = document.getElementById("customerId").value;
+        let cartId = document.getElementById("cartId").value;
+        // DTO에 ID와 수량 추가
+        dto.books.push({
+            customerId: customerId,
+            bookId: bookId,
+            bookCount: bookCount,
+            cartId: cartId
+        });
+    });
+    console.log(dto);
+    $.ajax({
+        url: '/book/payment', // 서버 요청을 처리할 URL
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(dto.books),
+        success: function (response) {
+            console.log("성공");
+            location.href = "/book/payment";
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.log("실패");
+            console.log('AJAX Error:', error);
+        }
+    });
 }
+
 
 
 

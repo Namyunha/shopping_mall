@@ -74,12 +74,11 @@
 </div>
 
 <div class="m-md-3">
-    <c:choose>
 
+    <c:choose>
         <c:when test="${bookList == null}">
             <h1>등록된 도서가 없습니다.</h1>
         </c:when>
-
         <c:otherwise>
             <table class="table">
                 <thead class="table-dark">
@@ -94,22 +93,28 @@
                 </thead>
 
                 <tbody>
+
                 <c:forEach items="${bookList}" var="book">
+                    <input id="customerId" type="text" name="${customer.id}" value="${customer.id}"
+                           style="display: none">
+                    <input id="cartId" type="text" name="${cartDTO.id}" value="${cartDTO.id}" style="display: none">
                     <tr>
                         <td><input class="oneClick" type="checkbox"
                                    onclick="onCheck(`${book.id}`)"></td>
                         <td>${book.bookName}</td>
                         <td>${book.unitPrice}</td>
                         <td><input id="${book.id}" class="count"
-                                   onblur="countChange(`${book.id}`,`${book.unitPrice}`,`${book.unitsInStock}`)"
-                                   type="text" value="${book.unitsInStock}"> <span id="${book.id}Span"
-                                style="color: red">재고수량: ${book.unitsInStock}</span></td>
-                        <td id="${book.id}Price" class="price">${book.unitsInStock*book.unitPrice}</td>
+                                   onblur="countChange(`${book.id}`,`${book.unitPrice}`,`${book.unitsInStock}`,`${customer.id}`, `${book.bookName}`)"
+                                   type="text" value="${book.bookCount}"> <span id="${book.id}Span"
+                                                                                style="color: red">재고수량: ${book.unitsInStock}</span>
+                        </td>
+                        <td id="${book.id}Price" class="price">${book.bookCount*book.unitPrice}</td>
                         <td>
                             <button onclick="onDelete(`${book.id}`)">삭제</button>
                         </td>
                     </tr>
                 </c:forEach>
+
                 </tbody>
 
                 <tfoot class="table-primary">
@@ -124,45 +129,15 @@
                 </tfoot>
             </table>
         </c:otherwise>
-
     </c:choose>
 </div>
+
 
 <div class="m-md-3">
     <input id="buyBtn" type="button" onclick="buyBtn()"
            class="w-100 btn btn-lg btn-primary" value="구매하기" disabled>
     <a href="/book/shop" class="w-100 btn btn-lg btn-dark" type="submit">쇼핑하기</a>
 </div>
-
-<script>
-    <%--const buyBtn = () => {--%>
-    <%--    $.ajax({--%>
-    <%--        type: "post",--%>
-    <%--        url: "/book/payment",--%>
-    <%--        data: {--%>
-    <%--            customerId: ${customerDTO.id},--%>
-    <%--            sumCount: ${sumDTO.sumCount},--%>
-    <%--            sumPrice: ${sumDTO.sumPrice},--%>
-    <%--            customerName: `${customerDTO.name}`,--%>
-    <%--            payConditions: "결제대기",--%>
-    <%--            shipmentConditions: "배송준비",--%>
-    <%--            address: `${customerDTO.address}`,--%>
-    <%--            email: `${customerDTO.email}`--%>
-    <%--        },--%>
-    <%--        success: function () {--%>
-    <%--            const result = confirm("구매페이지로 가시겠습니까?");--%>
-    <%--            if (result) {--%>
-    <%--                location.href = "/book/payment";--%>
-    <%--            } else {--%>
-    <%--                location.href = "/book/shop";--%>
-    <%--            }--%>
-    <%--        },--%>
-    <%--        error: function () {--%>
-    <%--            alert("물건을 구매 하실수 없습니다.");--%>
-    <%--        }--%>
-    <%--    })--%>
-    <%--}--%>
-</script>
 
 </body>
 </html>

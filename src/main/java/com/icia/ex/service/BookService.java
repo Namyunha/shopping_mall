@@ -16,6 +16,7 @@ import java.util.UUID;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
+
     public void save(BookDTO bookDTO) throws IOException {
         if (bookDTO.getBookFile().get(0).isEmpty()) {
             System.out.println("파일없음");
@@ -52,12 +53,15 @@ public class BookService {
     public List<BooksDTO> findAll() {
         return bookRepository.findAll();
     }
+
     public BooksDTO findById(Long bookId) {
         return bookRepository.findById(bookId);
     }
+
     public void cartSave(CartDTO cartDTO) {
         bookRepository.cartSave(cartDTO);
     }
+
     public List<CbookDTO> findBooksList(Long loginNum) {
         return bookRepository.findBooksList(loginNum);
     }
@@ -65,22 +69,40 @@ public class BookService {
     public ResultDTO findSum(Long loginId) {
         return bookRepository.findSum(loginId);
     }
+
     public Long findNum(String loginId) {
         return bookRepository.findNum(loginId);
     }
+
     public void saveOrder(OrderDTO orderDTO) {
         bookRepository.saveOrder(orderDTO);
     }
+
     public void delete(Long id) {
         bookRepository.delete(id);
     }
+
     public void update(Map<String, Long> updateInfo) {
         bookRepository.update(updateInfo);
     }
+
     public void updateCart(Map<String, Long> updateInfo) {
         bookRepository.updateCart(updateInfo);
     }
+
     public void updateBook(Map<String, Long> updateInfo) {
         bookRepository.updateBook(updateInfo);
+    }
+
+    public void saveChange(ChangebookDTO changebookDTO) {
+        bookRepository.saveChange(changebookDTO);
+    }
+
+    public void changeSave(List<ChangebookDTO> books) {
+        bookRepository.changeSave(books);
+    }
+
+    public CartDTO findCart(Long loginNum) {
+        return bookRepository.findCart(loginNum);
     }
 }

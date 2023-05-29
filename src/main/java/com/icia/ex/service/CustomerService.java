@@ -18,11 +18,9 @@ public class CustomerService {
         customerRepository.save(customerDTO);
     }
 
-
     public String findByEmail(String email) {
         return customerRepository.fundByEmail(email);
     }
-
 
     public boolean login(CustomerDTO customerDTO) {
         CustomerDTO dto = customerRepository.login(customerDTO);
@@ -41,7 +39,6 @@ public class CustomerService {
         return customerRepository.findByUser(loginId);
     }
 
-
     public List<OrderDTO> orderList(Long loginNum) {
         return customerRepository.orderList(loginNum);
     }
@@ -53,4 +50,5 @@ public class CustomerService {
     public List<CbookDTO> cbookList(Long loginNum) {
         return customerRepository.cbookList(loginNum);
     }
+
 }

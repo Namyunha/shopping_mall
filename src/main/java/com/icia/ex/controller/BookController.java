@@ -35,6 +35,7 @@ public class BookController {
         return "/bookPages/bookSave";
     }
 
+
     @PostMapping("/save")
     public String saveParam(@ModelAttribute BookDTO bookDTO, Model model) throws IOException {
         System.out.println(bookDTO);
@@ -66,7 +67,6 @@ public class BookController {
     @GetMapping("/detail")
     public String bookDetail(@RequestParam("bookId") Long bookId, Model model, HttpSession session) {
         BooksDTO booksDTO = bookService.findById(bookId);
-
         model.addAttribute("booksDTO", booksDTO);
         String id = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", id);
@@ -76,32 +76,7 @@ public class BookController {
     }
 
 
-    @GetMapping("/cart")
-    public String bookCart(Model model, HttpSession session) {
-        String loginId = (String) session.getAttribute("loginDTO");
-        model.addAttribute("loginId", loginId);
-
-        CustomerDTO customerDTO = customerService.findByUser(loginId);
-        model.addAttribute("customerDTO", customerDTO);
-
-        Long loginNum = bookService.findNum(loginId);
-
-//        List<BooksDTO> booksDTOList = bookService.findBooksList(loginNum);
-//        System.out.println("booksDTOList = " + booksDTOList);
-        ResultDTO sumDTO = bookService.findSum(loginNum);
-        List<CbookDTO> cbookDTOList = customerService.cbookList(loginNum);
-
-        System.out.println("cbookDTOList = " + cbookDTOList);
-        System.out.println("sumDTO = " + sumDTO);
-
-        model.addAttribute("bookList", cbookDTOList);
-        model.addAttribute("sumDTO", sumDTO);
-
-        return "/bookPages/bookCart";
-    }
-
-
-    @PostMapping("/cart")
+    @PostMapping("/detail")
     public ResponseEntity cartParam(@ModelAttribute CartDTO cartDTO) {
         System.out.println("cartDTO = " + cartDTO);
         Long customerId = cartDTO.getCustomerId();
@@ -109,15 +84,32 @@ public class BookController {
         Long bookId = cartDTO.getBookId();
         System.out.println("bookId = " + bookId);
         bookService.cartSave(cartDTO);
-
-        Map<String, Long> updateInfo = new HashMap<>();
-        updateInfo.put("customerId", customerId);
-        updateInfo.put("bookId", bookId);
-
-        bookService.update(updateInfo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/cart")
+    public String bookCart(Model model, HttpSession session) {
+        String loginId = (String) session.getAttribute("loginDTO");
+        model.addAttribute("loginId", loginId);
+        Long loginNum = bookService.findNum(loginId);
+//        CartDTO cartDTO = bookService.findCart(loginNum);
+//        System.out.println("cartDTO = " + cartDTO);
+        CustomerDTO customerDTO = customerService.findByUser(loginId);
+        List<CbookDTO> cbookDTOList = customerService.cbookList(loginNum);
+        model.addAttribute("customer", customerDTO);
+        System.out.println("cbookDTOList = " + cbookDTOList);
+        model.addAttribute("bookList", cbookDTOList);
+//        model.addAttribute("cartDTO", cartDTO);
+        return "/bookPages/bookCart";
+    }
+
+//    @PostMapping("cart")
+//    {
+    //        Map<String, Long> updateInfo = new HashMap<>();
+    //        updateInfo.put("customerId", customerId);
+    //        updateInfo.put("bookId", bookId);
+    //        bookService.update(updateInfo);
+//    }
 
     @GetMapping("/info")
     public String bookInfo() {
@@ -127,44 +119,46 @@ public class BookController {
 
     @GetMapping("/payment")
     public String payment(@ModelAttribute OrderDTO orderDTO, HttpSession session, Model model) {
-//        System.out.println("Get: orderDTO = " + orderDTO);
-//        bookService.saveOrder(orderDTO);
         String loginId = (String) session.getAttribute("loginDTO");
         model.addAttribute("loginId", loginId);
-
         CustomerDTO customerDTO = customerService.findByUser(loginId);
         model.addAttribute("customerDTO", customerDTO);
-
         Long loginNum = bookService.findNum(loginId);
         List<CbookDTO> cbookDTOList = bookService.findBooksList(loginNum);
         System.out.println("booksDTOList = " + cbookDTOList);
         model.addAttribute("bookList", cbookDTOList);
-
         ResultDTO sumDTO = bookService.findSum(loginNum);
         System.out.println("sumDTO = " + sumDTO);
         model.addAttribute("sumDTO", sumDTO);
         return "/bookPages/bookPayment";
-
     }
+
 
     @PostMapping("/payment")
-    public ResponseEntity paymentParam(@ModelAttribute CbookDTO cBookDTO) {
+    public ResponseEntity paymentParam(@RequestBody List<ChangebookDTO> books) {
 
-        Long bookId = cBookDTO.getBookId();
-        Long bookCount = cBookDTO.getBookCount();
-        Long unitsInStocks = cBookDTO.getUnitsInStock();
-        Map<String, Long> updateInfo = new HashMap<>();
 
-        System.out.println("cBookDTO: " + cBookDTO);
-        updateInfo.put("bookId", bookId);
-        updateInfo.put("bookCount", bookCount);
-        updateInfo.put("unitsInStocks", unitsInStocks);
-
-        System.out.println("updateInfo: "+updateInfo);
-        bookService.updateCart(updateInfo);
-        bookService.updateBook(updateInfo);
-        return new ResponseEntity<>(HttpStatus.OK);
+        System.out.println("changebookDTOList = " + books);
+        bookService.changeSave(books);
+        return new ResponseEntity(HttpStatus.OK);
     }
+
+
+//    @PostMapping("/payment")
+//    public ResponseEntity paymentParam(@ModelAttribute CbookDTO cBookDTO) {
+//        Long bookId = cBookDTO.getBookId();
+//        Long bookCount = cBookDTO.getBookCount();
+//        Long unitsInStocks = cBookDTO.getUnitsInStock();
+//        Map<String, Long> updateInfo = new HashMap<>();
+//        System.out.println("cBookDTO: " + cBookDTO);
+//        updateInfo.put("bookId", bookId);
+//        updateInfo.put("bookCount", bookCount);
+//        updateInfo.put("unitsInStocks", unitsInStocks);
+//        System.out.println("updateInfo: "+updateInfo);
+//        bookService.updateCart(updateInfo);
+//        bookService.updateBook(updateInfo);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
 
 

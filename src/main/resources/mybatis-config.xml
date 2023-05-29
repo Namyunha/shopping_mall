@@ -11,5 +11,6 @@
         <typeAlias type="com.icia.ex.dto.ResultDTO" alias="result" />
         <typeAlias type="com.icia.ex.dto.OrderDTO" alias="order" />
         <typeAlias type="com.icia.ex.dto.CbookDTO" alias="cbook" />
+        <typeAlias type="com.icia.ex.dto.ChangebookDTO" alias="changeBook" />
     </typeAliases>
 </configuration>

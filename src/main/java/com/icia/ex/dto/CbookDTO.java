@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+
 public class CbookDTO {
     private Long id;
     private Long sellerId;
@@ -23,8 +24,9 @@ public class CbookDTO {
     private String category;
     private String conditions; // 신규 or 중고 or E-Book
     private int fileAttached;
-    private List<MultipartFile> bookFile;
+    private List<String> bookFile;
     private Long bookId;
     private Long customerId;
     private Long bookCount;
+    private int checkbox;
 }

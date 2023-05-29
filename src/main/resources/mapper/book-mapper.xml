@@ -4,7 +4,6 @@
 
 
 <mapper namespace="Book">
-
     <insert id="save" parameterType="book" useGeneratedKeys="true" keyProperty="id">
         insert into book_table(sellerId, bookName, unitPrice, unitsInStock, author, descript, publisher, category,
                                conditions, fileAttached)
@@ -12,15 +11,18 @@
                 #{category}, #{conditions}, #{fileAttached})
     </insert>
 
+
     <insert id="saveFile" parameterType="bookFile">
         insert into book_file_table(originalFileName, storedFileName, bookId)
         values (#{originalFileName}, #{storedFileName}, #{bookId})
     </insert>
 
+
     <insert id="saveCart" parameterType="cart">
         insert into cart_table(bookId, customerId, bookCount)
         values (#{bookId}, #{customerId}, #{bookCount})
     </insert>
+
 
     <insert id="saveOrder" parameterType="order">
         insert into order_table(customerId, sumCount, sumPrice, customerName, payConditions, shipmentConditions,
@@ -28,13 +30,35 @@
         values (#{customerId}, #{sumCount}, #{sumPrice}, #{customerName}, #{payConditions}, #{shipmentConditions},
                 #{address}, #{email})
     </insert>
+
+
+    <insert id="saveChangeList" parameterType="java.util.List">
+        INSERT INTO change_book_table (customerId, bookId, bookCount, cartId)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.customerId}, #{item.bookId}, #{item.bookCount}, #{item.cartId})
+        </foreach>
+    </insert>
+
+
     <!--장바구니 넣은 후에 책의 buyer 값과 buyCount 넣어주기-->
+
+
+<!--    <insert id="saveChangeList" parameterType="java.util.List">-->
+<!--        INSERT INTO change_book_table (customerId, bookId, bookCount)-->
+<!--        VALUES-->
+<!--        <foreach collection="list" item="changeBook" separator=",">-->
+<!--            (#{changeBook.customerId}, #{changeBook.bookId}, #{changeBook.bookCount})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
 
     <select id="findCart" parameterType="Long" resultType="cart">
         select *
         from cart_table
         where customerId = #{customerId}
     </select>
+
 
     <select id="selectList" resultType="books">
         select *
@@ -70,9 +94,6 @@
     </select>
 
 
-    <!-- 장바구니에 책 목록 -->
-
-
     <select id="findSum" parameterType="Long" resultType="result">
         select sum(c.bookCount * b.unitPrice) as 'sumPrice', sum(bookCount) as 'sumCount'
         from book_table b,
@@ -81,11 +102,13 @@
           and b.id = c.bookId;
     </select>
 
+
     <select id="orderList" parameterType="Long" resultType="order">
         select *
         from order_table
         where customerId = #{id}
     </select>
+
 
     <select id="cbookList" parameterType="Long" resultType="cbook">
         select *
@@ -95,17 +118,20 @@
           and c.bookId = b.id;
     </select>
 
+
     <delete id="delete" parameterType="Long">
         delete
         from cart_table
         where bookId = #{id};
     </delete>
 
+
     <update id="updateCart" parameterType="java.util.Map">
         update cart_table
         set bookCount=#{bookCount}
         where bookId = #{bookId};
     </update>
+
 
     <update id="updateBook" parameterType="java.util.Map">
         update book_table
