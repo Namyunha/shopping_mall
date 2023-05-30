@@ -182,13 +182,11 @@ function buyBtn() {
         let bookCountInput = document.getElementById(bookId);
         let bookCount = bookCountInput.value;
         let customerId = document.getElementById("customerId").value;
-        let cartId = document.getElementById("cartId").value;
         // DTO에 ID와 수량 추가
         dto.books.push({
             customerId: customerId,
             bookId: bookId,
             bookCount: bookCount,
-            cartId: cartId
         });
     });
     console.log(dto);
@@ -196,7 +194,7 @@ function buyBtn() {
         url: '/book/payment', // 서버 요청을 처리할 URL
         type: 'post',
         contentType: 'application/json',
-        data: JSON.stringify(dto.books),
+        data: JSON.stringify(dto),
         success: function (response) {
             console.log("성공");
             location.href = "/book/payment";

@@ -136,8 +136,6 @@ public class BookController {
 
     @PostMapping("/payment")
     public ResponseEntity paymentParam(@RequestBody List<ChangebookDTO> books) {
-
-
         System.out.println("changebookDTOList = " + books);
         bookService.changeSave(books);
         return new ResponseEntity(HttpStatus.OK);

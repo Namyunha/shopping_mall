@@ -33,10 +33,10 @@
 
 
     <insert id="saveChangeList" parameterType="java.util.List">
-        INSERT INTO change_book_table (customerId, bookId, bookCount, cartId)
+        INSERT INTO change_book_table (customerId, bookId, bookCount)
         VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.customerId}, #{item.bookId}, #{item.bookCount}, #{item.cartId})
+            (#{item.customerId}, #{item.bookId}, #{item.bookCount})
         </foreach>
     </insert>
 
